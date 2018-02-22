@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <Image x:Name="image" HorizontalAlignment="Left" Height="286" Margin="303,33,0,0" VerticalAlignment="Top" Width="214"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="273*"/>
+            <ColumnDefinition Width="244*"/>
+        </Grid.ColumnDefinitions>
+        <Image x:Name="image" Grid.Column="1" HorizontalAlignment="Left" Height="275" Margin="22,34,0,0" VerticalAlignment="Top" Width="212"/>
     </Grid>
 </Window>

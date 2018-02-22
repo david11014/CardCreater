@@ -1,12 +1,14 @@
 #include <iostream>
 using namespace System;
+using namespace System::Drawing;
 
 namespace CCCore
 {
 	public ref class CardElement
 	{
 	public:
-		int x, y;
+		int x, y, layer;
+
 		CardElement();
 		virtual ~CardElement();
 		String^ GetBackGroundPath();
@@ -16,12 +18,11 @@ namespace CCCore
 		
 	};
 
-	public ref class CardBackGround : CardElement
+	public ref class CardBackground : CardElement
 	{
 	public:
-
-		CardBackGround();
-		~CardBackGround();
+		CardBackground();
+		~CardBackground();
 	};
 
 	public ref class CardFram : CardElement
@@ -33,20 +34,22 @@ namespace CCCore
 	
 	};
 
-	public ref class CardNum : CardElement
+	public ref class CardImgNum : CardElement
 	{
 	public:
 		int num;
-
-		CardNum();
-		~CardNum();
+		
+		CardImgNum();
+		~CardImgNum();
 		
 	};
 
 	public ref class CardText : CardElement
 	{
 	public:
-
+		String^ Text;
+		Color color;
+		Font font;
 		CardText();
 		~CardText();
 	};

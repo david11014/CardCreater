@@ -15,7 +15,7 @@ void MarshalString(String ^ s, string& os) {
 	Marshal::FreeHGlobal(IntPtr((void*)chars));
 }
 
-CardElement::CardElement()
+CardElement::CardElement():x(0),y(0),layer(0)
 {
 }
 
@@ -36,20 +36,20 @@ void CCCore::CardElement::SetBackGroundPath(String^ path)
 	MarshalString(path, *bg);
 }
 
-CCCore::CardNum::CardNum()
+CCCore::CardImgNum::CardImgNum()
 {
 }
 
-CCCore::CardNum::~CardNum()
+CCCore::CardImgNum::~CardImgNum()
 {
 }
 
-CCCore::CardBackGround::CardBackGround()
+CCCore::CardBackground::CardBackground()
 {
 	throw gcnew System::NotImplementedException();
 }
 
-CCCore::CardBackGround::~CardBackGround()
+CCCore::CardBackground::~CardBackground()
 {
 	throw gcnew System::NotImplementedException();
 }

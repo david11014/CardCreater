@@ -1,5 +1,7 @@
 #pragma once
+#include <vector>
 #include "Cardelement.h"
+using namespace std;
 namespace CCCore
 {
 	public ref class Card
@@ -8,8 +10,9 @@ namespace CCCore
 	public:
 		Card();
 		~Card();
-		CardElement element;
+		
 	
+		CardBackground background;
 		
 	};
 }

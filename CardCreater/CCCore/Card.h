@@ -1,7 +1,8 @@
 #pragma once
-#include <vector>
 #include "Cardelement.h"
-using namespace std;
+using namespace System;
+using namespace System::Collections::Generic;
+
 namespace CCCore
 {
 	public ref class Card
@@ -10,11 +11,11 @@ namespace CCCore
 	public:
 		Card();
 		~Card();
-		
 	
-		CardBackground background;
-		
+		List<CardElement^> elements;
+
 	};
+		
 }
 
 

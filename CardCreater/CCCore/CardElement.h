@@ -48,10 +48,13 @@ namespace CCCore
 	{
 	public:
 		String^ Text;
+		Font^ font;
 		Color color;
-		Font font;
+		
 		CardText();
 		~CardText();
+
+		String^ GetColorHex();
 	};
 }
 

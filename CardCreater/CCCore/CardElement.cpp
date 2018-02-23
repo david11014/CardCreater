@@ -46,7 +46,7 @@ CCCore::CardImgNum::~CardImgNum()
 
 CCCore::CardBackground::CardBackground()
 {
-	throw gcnew System::NotImplementedException();
+	
 }
 
 CCCore::CardBackground::~CardBackground()
@@ -66,10 +66,17 @@ CCCore::CardFram::~CardFram()
 
 CCCore::CardText::CardText()
 {
-	throw gcnew System::NotImplementedException();
+	Text = "";
+	color = Color::Black;
+	font = gcnew Font("", 3);
 }
 
 CCCore::CardText::~CardText()
 {
 	throw gcnew System::NotImplementedException();
+}
+
+String ^ CCCore::CardText::GetColorHex()
+{	
+	return "#" + color.R.ToString("X2") + color.G.ToString("X2") + color.B.ToString("X2");
 }

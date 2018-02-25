@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="CardCreater.ElementControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CardCreater"
+             mc:Ignorable="d" Height="125" Width="315" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+
+    <Grid>
+        <StackPanel Margin="0,0,0,0">
+            <Grid x:Name="elementTop">
+                <Label x:Name="title" Content="Label" VerticalAlignment="Top" Height="35" FontSize="20" HorizontalAlignment="Left" Width="437"/>
+                <Button x:Name="button" Content="Edit" Margin="0,0,10,0" VerticalAlignment="Top" Height="35" FontSize="20" HorizontalAlignment="Right" Width="80" />
+
+            </Grid>
+            <Grid x:Name="elementLocate">
+                <local:UpDownControl x:Name="xUpDownControl" NumValue="0" Text="X:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="35" Width="125" FontSize="16" />
+                <local:UpDownControl x:Name="yUpDownControl" NumValue="0" Text="Y:" HorizontalAlignment="Left" Margin="125,0,0,0" VerticalAlignment="Top" Height="35" Width="125" FontSize="16" />
+            </Grid>
+            <RichTextBox x:Name="richTextBox" Height="50" FontSize="14">
+                <FlowDocument>
+                    <Paragraph>
+                        <Run Text="RichTextBox"/>
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

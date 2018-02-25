@@ -11,9 +11,12 @@ namespace CCCore
 	public:
 		Card();
 		~Card();
-	
+		
 		List<CardElement^> elements;
 
+
+		CardElement^ Get(int i);
+		void Set(CardElement^ ce);		
 	};
 		
 }

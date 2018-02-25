@@ -17,6 +17,10 @@ using Media = System.Windows.Media;
 using System.Globalization;
 using CCCore;
 using System.IO;
+using System.Windows;
+using Microsoft.Win32;
+using System.Collections.Generic;
+
 
 namespace CardCreater
 {
@@ -26,41 +30,12 @@ namespace CardCreater
     /// </summary>
     public partial class MainWindow : Window
     {
-        DrawingGroup drawingGroup = new DrawingGroup();
+        DrawingGroup drawG = new DrawingGroup();
+        Card card = new Card();
 
         public MainWindow()
         {
-            InitializeComponent();
-
-            Card C = new Card();
-            
-            CardText TT = new CardText();
-
-            TT.Text = "ABC";
-
-            string path = "C:\\Users\\david-vr-lab\\Documents\\GitHub\\CardCreater\\CardCreater\\Cover_01.jpg";
-            CardBackground BG = new CardBackground();
-            BG.SetBackGroundPath(path);
-
-
-            // Create a new DrawingGroup of the control.
-            DrawingGroup drawingGroup = new DrawingGroup();
-            
-            using (DrawingContext drawingContext = drawingGroup.Append())
-            {
-                BitmapImage source = new BitmapImage(new Uri(path));
-                drawingContext.DrawImage(source, new Rect(new System.Windows.Size(image.Width, image.Height)));                
-            }
-
-            DrawText(TT, ref drawingGroup);
-
-            DrawingImage drawingImageSource = new DrawingImage(drawingGroup);
-            ImageDrawing a = new ImageDrawing(drawingImageSource, new Rect(new System.Windows.Size(image.Width, image.Height)));
-            drawingImageSource.Freeze();           
-            image.Source = drawingImageSource;
-
-            SaveDrawingToFile(a,"aa.bmp", 1);
-
+            InitializeComponent();         
         }
 
         Geometry CardText2Geometry(CCCore.CardText T)
@@ -86,7 +61,17 @@ namespace CardCreater
             return textGeometry;
         }
 
-        void DrawText(CCCore.CardText T, ref DrawingGroup drawingGroup)
+        void Render()
+        {
+            DrawingImage drawingImageSource = new DrawingImage(drawG);
+            ImageDrawing a = new ImageDrawing(drawingImageSource, new Rect(new System.Windows.Size(image.Width, image.Height)));
+            drawingImageSource.Freeze();
+            image.Source = drawingImageSource;
+
+            //SaveDrawingToFile(a, "aa.bmp", 1);
+        }
+
+        void DrawText(CardText T, ref DrawingGroup drawingGroup)
         {
             
            using (DrawingContext drawingContext = drawingGroup.Append())
@@ -102,6 +87,17 @@ namespace CardCreater
                 drawingContext.DrawGeometry(inBrush, p, textGeometry);
             }
                        
+        }
+
+        void DrawImage(CardElement ce, ref DrawingGroup drawingGroup)
+        {
+            using (DrawingContext drawingContext = drawingGroup.Append())
+            {
+                string path = ce.GetBackGroundPath();
+                 BitmapImage source = new BitmapImage(new Uri(path));
+                 drawingContext.DrawImage(source, new Rect(new System.Windows.Size(image.Width, image.Height)));
+            }
+               
         }
 
         public void SaveDrawingToFile(Drawing drawing, string fileName, double scale)
@@ -120,6 +116,22 @@ namespace CardCreater
             using (var stream = new FileStream(fileName, FileMode.Create))
             {
                 encoder.Save(stream);
+            }
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
+                card.Get(0).SetBackGroundPath(openFileDialog.FileName);
+                DrawImage(card.Get(0),ref drawG);
+
+                CardText TT = new CardText();
+                TT.Text = "AAAA";
+                card.Set(TT);
+                DrawText((CardText)card.Get(1), ref drawG);
+                Render();
             }
         }
     }

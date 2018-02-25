@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardCreater", "CardCreater\CardCreater.csproj", "{70785F9C-3EDF-449E-B73B-E2B6F5992C66}"
+	ProjectSection(ProjectDependencies) = postProject
+		{63243376-81DD-4531-91F4-DCDE7A7FD992} = {63243376-81DD-4531-91F4-DCDE7A7FD992}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CCCore", "CCCore\CCCore.vcxproj", "{63243376-81DD-4531-91F4-DCDE7A7FD992}"
 EndProject

@@ -5,13 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CardCreater"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="517.585" Width="875.742">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="273*"/>
-            <ColumnDefinition Width="244*"/>
-        </Grid.ColumnDefinitions>
-        <Image x:Name="image" Grid.Column="1" HorizontalAlignment="Left" Height="275" Margin="22,34,0,0" VerticalAlignment="Top" Width="212"/>
-        <Label x:Name="label" Content="Label" HorizontalAlignment="Left" Margin="42,34,0,0" VerticalAlignment="Top"/>
+        <Image x:Name="image" Margin="320,0,0,10" OpacityMask="#FFCB2D2D"/>
+        <Button x:Name="button" Content="背景" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="button_Click" FontSize="20" Height="47"/>
+        <StackPanel x:Name="stack" HorizontalAlignment="Left" Margin="0,47,0,0" Width="315">
+            <local:ElementControl Type="0"/>
+        </StackPanel>
     </Grid>
 </Window>

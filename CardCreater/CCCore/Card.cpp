@@ -6,10 +6,44 @@ Card::Card()
 {
 	CardBackground^ bg = gcnew CardBackground();
 	elements.Add(bg);
-
 }
 
 
 Card::~Card()
 {
+}
+
+CardElement^ CCCore::Card::Get(int i)
+{
+	return elements[i];
+}
+
+void CCCore::Card::Set(CardElement^ ce)
+{
+	CardElement^ el;
+
+	switch (ce->type)
+	{
+	case 0:
+		el = gcnew CardBackground(*((CardBackground^)ce));
+		break;
+	case 1:
+		el = gcnew CardFram(*((CardFram^)ce));
+		break;
+	case 2:
+		el = gcnew CardImage(*((CardImage^)ce));
+		break;
+	case 3:
+		el = gcnew CardImgNum(*((CardImgNum^)ce));
+		break;
+	case 4:
+		el = gcnew CardText(*((CardText^)ce));
+		break;
+	default:
+		el = gcnew CardElement(*((CardElement^)ce));
+	}
+
+	elements.Add(el);
+	elements[elements.Count - 1]->layer = elements.Count - 1;
+
 }

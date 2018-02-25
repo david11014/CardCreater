@@ -4,24 +4,28 @@ using namespace System::Drawing;
 
 namespace CCCore
 {
+#define TYPE_NUM 5
 	public ref class CardElement
 	{
 	public:
 		int x, y, layer;
-
+		int type;
+		
 		CardElement();
-		virtual ~CardElement();
+		CardElement(CardElement %source);
+		~CardElement();
 		String^ GetBackGroundPath();
 		void SetBackGroundPath(String^ path);
 	private:
 		std::string *bg;
-		
+		std::string *typeName;		
 	};
 
 	public ref class CardBackground : CardElement
 	{
 	public:
 		CardBackground();
+		CardBackground(CardBackground %source);
 		~CardBackground();
 	};
 
@@ -30,8 +34,16 @@ namespace CCCore
 	public:
 
 		CardFram();
-		~CardFram();
-	
+		CardFram(CardFram %source);
+		~CardFram();	
+	};
+
+	public ref class CardImage : CardElement
+	{
+	public:
+		CardImage();
+		CardImage(CardImage %source);
+		~CardImage();
 	};
 
 	public ref class CardImgNum : CardElement
@@ -40,6 +52,7 @@ namespace CCCore
 		int num;
 		
 		CardImgNum();
+		CardImgNum(CardImgNum %source);
 		~CardImgNum();
 		
 	};
@@ -52,6 +65,7 @@ namespace CCCore
 		Color color;
 		
 		CardText();
+		CardText(CardText %source);
 		~CardText();
 
 		String^ GetColorHex();

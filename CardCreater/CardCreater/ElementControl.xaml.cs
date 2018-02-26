@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CCCore;
 
 namespace CardCreater
 {
@@ -21,7 +22,9 @@ namespace CardCreater
     public partial class ElementControl : UserControl
     {
         private int _type = 0;
+        private int _layer = 0;
         string[] typeName = new string[5];
+        
 
         public ElementControl()
         {
@@ -39,7 +42,46 @@ namespace CardCreater
             set
             {
                 _type = value;
-                title.Content = typeName[_type];
+                title.Content = _layer.ToString() + ": " + typeName[_type];
+                int h = 231;
+                switch (_type)
+                {                    
+                    case 0: //背景
+                        textProperty.Visibility = Visibility.Collapsed;
+                        numProperty.Visibility = Visibility.Collapsed;
+                        h -= 99;
+                        break;
+                    case 1: //邊框
+                        textProperty.Visibility = Visibility.Collapsed;
+                        numProperty.Visibility = Visibility.Collapsed;
+                        h -= 99;
+                        break;
+                    case 2: //圖片
+                        textProperty.Visibility = Visibility.Collapsed;
+                        numProperty.Visibility = Visibility.Collapsed;
+                        h -= 99;
+                        break;          
+                    case 3: //數字
+                        textProperty.Visibility = Visibility.Collapsed;
+                        h -= 33;
+                        break;
+                    case 4: //文字
+                        numProperty.Visibility = Visibility.Collapsed;
+                        picturePath.Visibility = Visibility.Collapsed;
+                        pictureSize.Visibility = Visibility.Collapsed;
+                        h -= 99;
+                        break;
+                }
+                this.Height = h;
+
+            }
+        }
+        public int Layer
+        {
+            get { return _layer; }
+            set
+            {
+                _layer = value;
             }
         }
     }

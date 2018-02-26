@@ -63,11 +63,13 @@ namespace CardCreater
 
         void Render()
         {
-            DrawingImage drawingImageSource = new DrawingImage(drawG);
-            ImageDrawing a = new ImageDrawing(drawingImageSource, new Rect(new System.Windows.Size(image.Width, image.Height)));
-            drawingImageSource.Freeze();
-            image.Source = drawingImageSource;
+            DrawingImage drawingImageSource = new DrawingImage(drawG);            
+            drawingImageSource.Freeze();     
 
+            image.BeginInit();                
+            image.Source = drawingImageSource;
+            image.EndInit();
+            //ImageDrawing a = new ImageDrawing(drawingImageSource, new Rect(new System.Windows.Size(image.Width, image.Height)));
             //SaveDrawingToFile(a, "aa.bmp", 1);
         }
 
@@ -94,8 +96,9 @@ namespace CardCreater
             using (DrawingContext drawingContext = drawingGroup.Append())
             {
                 string path = ce.GetBackGroundPath();
-                 BitmapImage source = new BitmapImage(new Uri(path));
-                 drawingContext.DrawImage(source, new Rect(new System.Windows.Size(image.Width, image.Height)));
+                BitmapImage source = new BitmapImage(new Uri(path));
+                //drawingContext.DrawImage(source, new Rect(new System.Windows.Size(image.Width, image.Height)));
+                drawingContext.DrawImage(source, new Rect(new System.Windows.Size(30,30)));
             }
                
         }

@@ -9,16 +9,15 @@ namespace CCCore
 	{
 	public:
 		int x, y, layer;
-		int type;
-		
+		int type;	
+		String ^bgPath;
+
 		CardElement();
 		CardElement(CardElement %source);
 		~CardElement();
 		String^ GetBackGroundPath();
 		void SetBackGroundPath(String^ path);
-	private:
-		std::string *bg;
-		std::string *typeName;		
+
 	};
 
 	public ref class CardBackground : CardElement
@@ -32,7 +31,7 @@ namespace CCCore
 	public ref class CardFram : CardElement
 	{
 	public:
-
+		
 		CardFram();
 		CardFram(CardFram %source);
 		~CardFram();	
@@ -41,6 +40,7 @@ namespace CCCore
 	public ref class CardImage : CardElement
 	{
 	public:
+		
 		CardImage();
 		CardImage(CardImage %source);
 		~CardImage();

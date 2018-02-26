@@ -15,37 +15,28 @@ void MarshalString(String ^ s, string& os) {
 
 CardElement::CardElement():x(0),y(0),layer(0)
 {
-	bg = new string("");
-	string t[TYPE_NUM] = { "CardBackground" ,"CardFram","CardImage" ,"CardImgNum" ,"CardText" };
-	typeName = new string[TYPE_NUM]();
-	for (int i = 0; i < TYPE_NUM; i++)
-	{
-		typeName[i] = t[i];
-	}
-
+	bgPath = gcnew String("");
 }
 
 CCCore::CardElement::CardElement(CardElement % source) :x(source.x), y(source.y), layer(source.layer)
 {
 	CardElement();
-	bg = new string(source.bg->c_str());
+	bgPath = gcnew String(source.bgPath->ToString());
 }
 
 CardElement::~CardElement()
 {
-	delete bg;
+	delete bgPath;
 }
 
 String^ CCCore::CardElement::GetBackGroundPath()
 {	
-	String^ R = gcnew String(bg->c_str());
-	return R;
+	return bgPath;
 }
 
 void CCCore::CardElement::SetBackGroundPath(String^ path)
 {
-	bg = new string("");
-	MarshalString(path, *bg);
+	bgPath = path;
 }
 
 /**CardBackground**/
@@ -76,7 +67,6 @@ CCCore::CardFram::CardFram(CardFram % source) :CardElement(source)
 
 CCCore::CardFram::~CardFram()
 {
-	throw gcnew System::NotImplementedException();
 }
 
 /**CardImage**/

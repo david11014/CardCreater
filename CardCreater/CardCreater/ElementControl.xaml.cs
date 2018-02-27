@@ -24,6 +24,8 @@ namespace CardCreater
         private int _type = 0;
         private int _layer = 0;
         string[] typeName = new string[5];
+
+
         
 
         public ElementControl()
@@ -82,7 +84,42 @@ namespace CardCreater
             set
             {
                 _layer = value;
+                title.Content = _layer.ToString() + ": " + typeName[_type];
             }
+        }
+
+
+        public static readonly RoutedEvent OpenFileEvent = EventManager.RegisterRoutedEvent(
+            "OpenFile", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ElementControl));
+        public event RoutedEventHandler OpenFile
+        {
+            add { AddHandler(OpenFileEvent, value); }
+            remove { RemoveHandler(OpenFileEvent, value); }
+        }
+        void RaiseOpenFileEvent()
+        {
+            RoutedEventArgs newEventArgs = new RoutedEventArgs(ElementControl.OpenFileEvent);
+            RaiseEvent(newEventArgs);
+        }
+
+        private void pathButton_Click(object sender, RoutedEventArgs e)
+        {
+            RaiseOpenFileEvent();
+        }
+
+        private void element_ValueCahange(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void richTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void fontButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

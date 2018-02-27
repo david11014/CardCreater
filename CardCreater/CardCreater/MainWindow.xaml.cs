@@ -137,5 +137,14 @@ namespace CardCreater
                 Render();
             }
         }
+
+        private void ElementControl_OpenFile(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
+                Element1.pathTextBox.Text = openFileDialog.FileName;
+            }
+        }
     }
 }

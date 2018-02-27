@@ -21,7 +21,7 @@ namespace CardCreater
     public partial class UpDownControl : UserControl
     {
         private int _numValue = 0;
-
+        
         public UpDownControl()
         {
             InitializeComponent();
@@ -35,13 +35,14 @@ namespace CardCreater
             txtNum.Text = _numValue.ToString();
         }
 
-        public int NumValue
+        public int Value
         {
             get { return _numValue; }
             set
             {
                 _numValue = value;
                 txtNum.Text = value.ToString();
+                RaiseValueChangeEvent();
             }
         }
         public string Text
@@ -53,14 +54,32 @@ namespace CardCreater
             }
         }
 
+        public static readonly RoutedEvent ValueChangeEvent = EventManager.RegisterRoutedEvent(
+            "ValueChange", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(UpDownControl));
+        // Provide CLR accessors for the event
+        public event RoutedEventHandler ValueChange
+        {
+            add { AddHandler(ValueChangeEvent, value); }
+            remove { RemoveHandler(ValueChangeEvent, value); }
+        }
+
+        // This method raises the Tap event
+        void RaiseValueChangeEvent()
+        {
+            RoutedEventArgs newEventArgs = new RoutedEventArgs(UpDownControl.ValueChangeEvent);
+            RaiseEvent(newEventArgs);
+        }
+
         private void cmdUp_Click(object sender, RoutedEventArgs e)
         {
-            NumValue++;
+            Value++;
+            RaiseValueChangeEvent();
         }
 
         private void cmdDown_Click(object sender, RoutedEventArgs e)
         {
-            NumValue--;
+            Value--;
+            RaiseValueChangeEvent();
         }
 
         private void txtNum_TextChanged(object sender, TextChangedEventArgs e)
@@ -71,7 +90,10 @@ namespace CardCreater
             }
 
             if (!int.TryParse(txtNum.Text, out _numValue))
+            {
                 txtNum.Text = _numValue.ToString();
+                RaiseValueChangeEvent();
+            }                
         }
     }
 }

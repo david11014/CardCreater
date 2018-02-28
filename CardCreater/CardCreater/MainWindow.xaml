@@ -5,13 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CardCreater"
         mc:Ignorable="d"
-        Title="MainWindow" Height="513.585" Width="875.742">
+        Title="MainWindow" Height="513.585" Width="945.742">
     <Grid>
-        <Image x:Name="image" Margin="715,0,0,0"/>        
-        <ScrollViewer HorizontalAlignment="Left" Margin="0,47,0,0" Width="381">
-            <StackPanel x:Name="stack" HorizontalAlignment="Left">
-                <local:ElementControl x:Name="Element1" Type="0" Layer="0" OpenFile="ElementControl_OpenFile" />
-            </StackPanel>
+        <Image x:Name="image" Margin="470,0,0,0"/>
+        <ScrollViewer HorizontalAlignment="Left" Margin="0,47,0,0" Width="390" Background="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}">
+            <StackPanel x:Name="stack" HorizontalAlignment="Left"/>
         </ScrollViewer>
+        <Button x:Name="button" Content="+" HorizontalAlignment="Left" Margin="294,10,0,0" VerticalAlignment="Top" Width="45" Height="32" FontSize="14" Click="button_Click"/>
     </Grid>
 </Window>

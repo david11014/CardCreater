@@ -73,13 +73,11 @@ namespace CardCreater
         private void cmdUp_Click(object sender, RoutedEventArgs e)
         {
             Value++;
-            RaiseValueChangeEvent();
         }
 
         private void cmdDown_Click(object sender, RoutedEventArgs e)
         {
             Value--;
-            RaiseValueChangeEvent();
         }
 
         private void txtNum_TextChanged(object sender, TextChangedEventArgs e)

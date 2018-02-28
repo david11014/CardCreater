@@ -4,29 +4,34 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CardCreater"
-             mc:Ignorable="d" Height="231" Width="365" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+             mc:Ignorable="d" Height="231" Width="365" Background="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"
+             MouseEnter="top_MouseEnter" MouseLeave="top_MouseLeave">
 
     <Grid>
-        <StackPanel Margin="0,0,0,0">
-            <Grid x:Name="elementTop" Margin="5,0,0,3">
-                <Label x:Name="title" Content="Label" VerticalAlignment="Top" Height="30" FontSize="16" Margin="0,0,65,0"/>
+        <StackPanel Margin="0,0,0,0" >
+            <Grid x:Name="elementTop" Margin="5,0,0,3" MouseEnter="top_MouseEnter" MouseLeave="top_MouseLeave">
+                <Label x:Name="title" Content="Label" VerticalAlignment="Top" Height="30" FontSize="16"  Background="{x:Null}"/>
             </Grid>
-            <Grid x:Name="elementLocate" Margin="5,0,0,3">
+            <Grid x:Name="elementLocate" Margin="5,0,5,3" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="97*"/>
+                    <ColumnDefinition Width="83*"/>
+                </Grid.ColumnDefinitions>
                 <local:UpDownControl x:Name="xUpDownControl" Value="0" Text="X:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="30" Width="129" ValueChange="element_ValueCahange"/>
-                <local:UpDownControl x:Name="yUpDownControl" Value="0" Text="Y:" HorizontalAlignment="Left" Margin="134,0,0,0" VerticalAlignment="Top" Height="30" Width="125" ValueChange="element_ValueCahange"/>
+                <local:UpDownControl x:Name="yUpDownControl" Value="0" Text="Y:" HorizontalAlignment="Left" Margin="134,0,0,0" VerticalAlignment="Top" Height="30" Width="125" ValueChange="element_ValueCahange" Grid.ColumnSpan="2"/>
             </Grid>
-            <Grid x:Name="pictureSize" Margin="5,0,0,3">
+            <Grid x:Name="pictureSize" Margin="5,0,5,3" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
                 <local:UpDownControl x:Name="pictureWidth" Value="0" Text="Width:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="30" Width="165" ValueChange="element_ValueCahange"/>
                 <local:UpDownControl x:Name="pictureHeight" Value="0" Text="Height:" HorizontalAlignment="Left" Margin="165,0,0,0" VerticalAlignment="Top" Height="30" Width="165" ValueChange="element_ValueCahange"/>
             </Grid>
-            <Grid x:Name="numProperty" Margin="5,0,0,3">
+            <Grid x:Name="numProperty" Margin="5,0,5,3" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
                 <local:UpDownControl x:Name="numUpDownControl" Value="0" Text="Num:  " HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="30" Width="155" ValueChange="element_ValueCahange"/>
             </Grid>
-            <Grid x:Name="picturePath" Margin="5,0,0,3">
+            <Grid x:Name="picturePath" Margin="5,0,5,3" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
                 <TextBox x:Name="pathTextBox" TextWrapping="Wrap" IsReadOnly="True" Text="File path" Margin="0,0,43,0"  Height="30"/>
                 <Button x:Name="pathButton" Content="..." Margin="0,0,10,0" VerticalAlignment="Top" Height="30" HorizontalAlignment="Right" Width="28" Click="pathButton_Click" />
             </Grid>
-            <Grid x:Name="textProperty" Margin="5,0,0,3">
+            <Grid x:Name="textProperty" Margin="5,0,5,3" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
                 <RichTextBox x:Name="richTextBox" Margin="0,0,65,0" Height="63" TextChanged="richTextBox_TextChanged">
                     <FlowDocument>
                         <Paragraph>

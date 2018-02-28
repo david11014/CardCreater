@@ -47,3 +47,18 @@ void CCCore::Card::Set(CardElement^ ce)
 	elements[elements.Count - 1]->layer = elements.Count - 1;
 
 }
+
+void CCCore::Card::Swap(int a, int b)
+{
+	if (a >= elements.Count || b >= elements.Count)
+		return;
+
+	elements[a]->layer = b;
+	elements[b]->layer = a;
+
+	CardElement^ temp;
+	
+	temp = elements[a];
+	elements[a] = elements[b];
+	elements[b] = temp;
+}

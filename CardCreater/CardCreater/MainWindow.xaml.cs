@@ -32,10 +32,26 @@ namespace CardCreater
     {
         DrawingGroup drawG = new DrawingGroup();
         Card card = new Card();
+        List<ElementControl> elements = new List<ElementControl>();
+        int currentEl = 0;
 
         public MainWindow()
         {
-            InitializeComponent();         
+            InitializeComponent();
+            elements.Add(new ElementControl(0, 0));
+            elements.Last().DataChanged += Element_DataChanged;
+            elements.Last().Selted = true;
+            ShowElements();
+
+        }
+
+        void ShowElements()
+        {
+            stack.Children.Clear();
+            for (int i = 0; i < elements.Count; i++)
+            {
+                stack.Children.Add(elements[i]);
+            }
         }
 
         Geometry CardText2Geometry(CCCore.CardText T)
@@ -124,27 +140,32 @@ namespace CardCreater
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            if (openFileDialog.ShowDialog() == true)
-            {
-                card.Get(0).SetBackGroundPath(openFileDialog.FileName);
-                DrawImage(card.Get(0),ref drawG);
+            //OpenFileDialog openFileDialog = new OpenFileDialog();
+            //if (openFileDialog.ShowDialog() == true)
+            //{
+            //    card.Get(0).SetBackGroundPath(openFileDialog.FileName);
+            //    DrawImage(card.Get(0),ref drawG);
 
-                CardText TT = new CardText();
-                TT.Text = "AAAA";
-                card.Set(TT);
-                DrawText((CardText)card.Get(1), ref drawG);
-                Render();
-            }
+            //    CardText TT = new CardText();
+            //    TT.Text = "AAAA";
+            //    card.Set(TT);
+            //    DrawText((CardText)card.Get(1), ref drawG);
+            //    Render();
+            //}
+            elements.Add(new ElementControl(3, elements.Count));
+            elements.Last().DataChanged += Element_DataChanged;
+            elements.Last();
+            ShowElements();
         }
 
-        private void ElementControl_OpenFile(object sender, RoutedEventArgs e)
+        private void Element_DataChanged(object sender, ElementControlEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            if (openFileDialog.ShowDialog() == true)
-            {
-                Element1.pathTextBox.Text = openFileDialog.FileName;
-            }
+            string s = "";
+            s += e.Layer.ToString() + " ";
+            s += e.Type.ToString() + " ";
+            s += e.Locate.ToString() + " ";
+            MessageBox.Show(s);
         }
+
     }
 }

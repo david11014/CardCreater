@@ -16,7 +16,8 @@ namespace CCCore
 
 
 		CardElement^ Get(int i);
-		void Set(CardElement^ ce);		
+		void Set(CardElement^ ce);
+		void Swap(int a, int b);
 	};
 		
 }

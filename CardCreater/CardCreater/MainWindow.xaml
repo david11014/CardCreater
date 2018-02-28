@@ -7,10 +7,15 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="513.585" Width="945.742">
     <Grid>
-        <Image x:Name="image" Margin="470,0,0,0"/>
-        <ScrollViewer HorizontalAlignment="Left" Margin="0,47,0,0" Width="390" Background="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="380*"/>
+            <ColumnDefinition Width="547*"/>
+        </Grid.ColumnDefinitions>
+        <Image x:Name="image" Grid.Column="1"/>
+        <ScrollViewer x:Name="scrollViewer" HorizontalAlignment="Left" Margin="0,52,0,0" Width="385">
             <StackPanel x:Name="stack" HorizontalAlignment="Left"/>
         </ScrollViewer>
-        <Button x:Name="button" Content="+" HorizontalAlignment="Left" Margin="294,10,0,0" VerticalAlignment="Top" Width="45" Height="32" FontSize="14" Click="button_Click"/>
+        <Button x:Name="addElementButtom" Content="+" HorizontalAlignment="Left" Margin="280,10,0,0" VerticalAlignment="Top" Width="45" Height="32" FontSize="14" Click="button_Click"/>
+        <Button x:Name="removeElementButtom" Content="-" HorizontalAlignment="Left" Margin="330,10,0,0" VerticalAlignment="Top" Width="45" Height="32" FontSize="14" Click="button_Click"/>
     </Grid>
 </Window>

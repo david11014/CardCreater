@@ -4,12 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CardCreater"
-             mc:Ignorable="d" Height="231" Width="365" Background="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"
-             MouseEnter="top_MouseEnter" MouseLeave="top_MouseLeave">
+             mc:Ignorable="d" Height="231" Width="365" Background="#FFB4B4B2"
+             MouseEnter="top_MouseEnter" MouseLeave="top_MouseLeave" BorderThickness="0,0,0,0" BorderBrush="#FF3E3E3E">
 
     <Grid>
         <StackPanel Margin="0,0,0,0" >
-            <Grid x:Name="elementTop" Margin="5,0,0,3" MouseEnter="top_MouseEnter" MouseLeave="top_MouseLeave">
+            <Grid x:Name="elementTop" Margin="5,0,5,3" MouseEnter="top_MouseEnter" MouseLeave="top_MouseLeave" MouseDown="elementTop_MouseDown" MouseUp="elementTop_MouseUp">
                 <Label x:Name="title" Content="Label" VerticalAlignment="Top" Height="30" FontSize="16"  Background="{x:Null}"/>
             </Grid>
             <Grid x:Name="elementLocate" Margin="5,0,5,3" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
@@ -31,7 +31,7 @@
                 <TextBox x:Name="pathTextBox" TextWrapping="Wrap" IsReadOnly="True" Text="File path" Margin="0,0,43,0"  Height="30"/>
                 <Button x:Name="pathButton" Content="..." Margin="0,0,10,0" VerticalAlignment="Top" Height="30" HorizontalAlignment="Right" Width="28" Click="pathButton_Click" />
             </Grid>
-            <Grid x:Name="textProperty" Margin="5,0,5,3" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+            <Grid x:Name="textProperty" Margin="5,0,5,3" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Height="63">
                 <RichTextBox x:Name="richTextBox" Margin="0,0,65,0" Height="63" TextChanged="richTextBox_TextChanged">
                     <FlowDocument>
                         <Paragraph>

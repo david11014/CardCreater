@@ -81,11 +81,13 @@ namespace CardCreater
 
     }
     public delegate void ElementEventHandler(object sender, ElementControlEventArgs e);
+    
     public partial class ElementControl : UserControl
     {
         private int _type = 0;
         private int _layer = 0;
         bool _selted = false;
+        bool _downflag = false;
         string[] typeName = new string[5];
               
         public ElementControl()
@@ -146,7 +148,7 @@ namespace CardCreater
                         h -= 99;
                         break;
                 }
-                this.Height = h;
+                this.Height = h + 3;
 
             }
         }
@@ -167,11 +169,13 @@ namespace CardCreater
                 _selted = value;
                 if(!_selted)
                 {
-                    this.SetResourceReference(BackgroundProperty, "{x:Static SystemColors.ControlDarkBrushKey}");
+                    Background = new SolidColorBrush(Color.FromArgb(255, 180, 180, 180));
+                    BorderThickness = new Thickness(0,0,0,0);
                 }
                 else
                 {
                     Background =  new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+                    BorderThickness = new Thickness(5,0,0,0);
                 }
             }
         }
@@ -208,8 +212,7 @@ namespace CardCreater
             catch
             {
                 return;
-            }
-            
+            }            
         }
         //OpenFile
         public static readonly RoutedEvent OpenFileEvent = EventManager.RegisterRoutedEvent(
@@ -310,6 +313,45 @@ namespace CardCreater
         private void top_MouseLeave(object sender, MouseEventArgs e)
         {
             elementTop.Background = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
+            _downflag = false;
+        }
+
+        //TopClick
+
+        public event ElementEventHandler TopClick;
+        protected virtual void OnTopClick(ElementControlEventArgs e)
+        {
+            TopClick(this, e);
+        }
+
+        void RiseTopClickEvent()
+        {
+            try
+            {
+                OnTopClick(new ElementControlEventArgs(_type,
+                    _layer, xUpDownControl.Value,
+                    yUpDownControl.Value,
+                    numUpDownControl.Value,
+                    pathTextBox.Text, Text));
+            }
+            catch
+            {
+                return;
+            }
+        }
+        private void elementTop_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            _downflag = true;
+            
+        }
+
+        private void elementTop_MouseUp(object sender, MouseButtonEventArgs e)
+        {            
+            if (_downflag)
+            {
+                _downflag = false;               
+                RiseTopClickEvent();
+            }
         }
     }
 

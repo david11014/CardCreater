@@ -38,13 +38,19 @@ namespace CardCreater
         public MainWindow()
         {
             InitializeComponent();
-            elements.Add(new ElementControl(0, 0));
-            elements.Last().DataChanged += Element_DataChanged;
-            elements.Last().Selted = true;
-            ShowElements();
-
+            
+            ElementControl first = new ElementControl(0, 0);
+            first.Selted = true;
+            AddElement(first);
+            scrollViewer.Width = first.Width + 15;
         }
-
+        void AddElement(ElementControl E)
+        {
+            elements.Add(E);
+            elements.Last().TopClick += Element_Click;
+            elements.Last().DataChanged += Element_DataChanged;
+            ShowElements();
+        }
         void ShowElements()
         {
             stack.Children.Clear();
@@ -152,10 +158,8 @@ namespace CardCreater
             //    DrawText((CardText)card.Get(1), ref drawG);
             //    Render();
             //}
-            elements.Add(new ElementControl(3, elements.Count));
-            elements.Last().DataChanged += Element_DataChanged;
-            elements.Last();
-            ShowElements();
+
+            AddElement(new ElementControl(3, elements.Count));
         }
 
         private void Element_DataChanged(object sender, ElementControlEventArgs e)
@@ -165,6 +169,18 @@ namespace CardCreater
             s += e.Type.ToString() + " ";
             s += e.Locate.ToString() + " ";
             MessageBox.Show(s);
+        }
+        private void Element_Click(object sender, ElementControlEventArgs e)
+        {
+           if (currentEl == e.Layer)
+                return;
+
+            elements[currentEl].Selted = false;
+            currentEl = e.Layer;
+            elements[currentEl].Selted = true;
+
+            ShowElements();
+
         }
 
     }

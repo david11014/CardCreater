@@ -11,11 +11,19 @@
             <ColumnDefinition Width="380*"/>
             <ColumnDefinition Width="547*"/>
         </Grid.ColumnDefinitions>
-        <Image x:Name="image" Grid.Column="1"/>
+              
+        <ComboBox x:Name="TypeSel" HorizontalAlignment="Left" Margin="203,10,0,0" VerticalAlignment="Top" Width="72" Height="32" SelectedIndex="0" FontSize="14">
+            <ListBoxItem Content="邊框"/>
+            <ListBoxItem Content="圖片"/>
+            <ListBoxItem Content="數字"/>
+            <ListBoxItem Content="文字"/>
+        </ComboBox>
+        <Button x:Name="addElementButtom" Content="+" HorizontalAlignment="Left" Margin="280,10,0,0" VerticalAlignment="Top" Width="45" Height="32" FontSize="14" Click="addElementButtom_Click"/>
+        <Button x:Name="removeElementButtom" Content="-" HorizontalAlignment="Left" Margin="330,10,0,0" VerticalAlignment="Top" Width="45" Height="32" FontSize="14" Click="removeElementButtom_Click"/>
         <ScrollViewer x:Name="scrollViewer" HorizontalAlignment="Left" Margin="0,52,0,0" Width="385">
             <StackPanel x:Name="stack" HorizontalAlignment="Left"/>
         </ScrollViewer>
-        <Button x:Name="addElementButtom" Content="+" HorizontalAlignment="Left" Margin="280,10,0,0" VerticalAlignment="Top" Width="45" Height="32" FontSize="14" Click="button_Click"/>
-        <Button x:Name="removeElementButtom" Content="-" HorizontalAlignment="Left" Margin="330,10,0,0" VerticalAlignment="Top" Width="45" Height="32" FontSize="14" Click="button_Click"/>
+        <Image x:Name="image" Grid.Column="1"/>
+        
     </Grid>
 </Window>

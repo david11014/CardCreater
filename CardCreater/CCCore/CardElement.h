@@ -69,6 +69,8 @@ namespace CCCore
 		~CardText();
 
 		String^ GetColorHex();
+		String^ GetText();
+		void SetText(String^ s);
 	};
 }
 

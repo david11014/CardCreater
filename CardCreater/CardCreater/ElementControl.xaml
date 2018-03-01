@@ -10,7 +10,15 @@
     <Grid>
         <StackPanel Margin="0,0,0,0" >
             <Grid x:Name="elementTop" Margin="5,0,5,3" MouseEnter="top_MouseEnter" MouseLeave="top_MouseLeave" MouseDown="elementTop_MouseDown" MouseUp="elementTop_MouseUp">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="305*"/>
+                    <ColumnDefinition Width="50*"/>
+                </Grid.ColumnDefinitions>
                 <Label x:Name="title" Content="Label" VerticalAlignment="Top" Height="30" FontSize="16"  Background="{x:Null}"/>
+                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                    <Button x:Name="layerUp" x:FieldModifier="private" Margin="5,5,0,5" Content="˄" Width="20" />
+                    <Button x:Name="layerDown" x:FieldModifier="private" Margin="0,5,0,5"  Content="˅" Width="20"  />
+                </StackPanel>
             </Grid>
             <Grid x:Name="elementLocate" Margin="5,0,5,3" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
                 <Grid.ColumnDefinitions>

@@ -9,15 +9,18 @@ namespace CCCore
 	{
 
 	public:
+		
 		Card();
 		~Card();
-		
-		List<CardElement^> elements;
-
 
 		CardElement^ Get(int i);
 		void Set(CardElement^ ce);
+		void Set(int i, CardElement^ ce);
+		void RemoveElements(int i);
 		void Swap(int a, int b);
+		int ElementCount();
+	private:
+		List<CardElement^> elements;
 	};
 		
 }

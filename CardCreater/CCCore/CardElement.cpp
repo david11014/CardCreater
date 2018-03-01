@@ -127,3 +127,13 @@ String ^ CCCore::CardText::GetColorHex()
 {	
 	return "#" + color.R.ToString("X2") + color.G.ToString("X2") + color.B.ToString("X2");
 }
+
+String ^ CCCore::CardText::GetText()
+{
+	return Text;
+}
+
+void CCCore::CardText::SetText(String^ s)
+{
+	this->Text = String::Copy(s);
+}

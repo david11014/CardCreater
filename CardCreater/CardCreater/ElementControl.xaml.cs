@@ -236,7 +236,7 @@ namespace CardCreater
                 pathTextBox.Text = openFileDialog.FileName;
             }
             RaiseOpenFileEvent();
-            if (oldvalue == pathTextBox.Text)
+            if (oldvalue != pathTextBox.Text)
             {
                 RiseDataChangedEvent();
             }

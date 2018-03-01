@@ -41,7 +41,7 @@ namespace CardCreater
             set
             {
                 _numValue = value;
-                txtNum.Text = value.ToString();
+                txtNum.Text = _numValue.ToString();
                 RaiseValueChangeEvent();
             }
         }
@@ -82,16 +82,25 @@ namespace CardCreater
 
         private void txtNum_TextChanged(object sender, TextChangedEventArgs e)
         {
+            
             if (txtNum == null)
             {
                 return;
             }
-
+            
             if (!int.TryParse(txtNum.Text, out _numValue))
             {
-                txtNum.Text = _numValue.ToString();
+                MessageBox.Show("aa");
+                txtNum.Text = Value.ToString();
+                Value = _numValue;
+                
                 RaiseValueChangeEvent();
-            }                
+            }
+        }
+
+        private void txtNum_KeyDown(object sender, KeyEventArgs e)
+        {
+            RaiseValueChangeEvent();
         }
     }
 }

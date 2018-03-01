@@ -16,8 +16,8 @@
                 </Grid.ColumnDefinitions>
                 <Label x:Name="title" Content="Label" VerticalAlignment="Top" Height="30" FontSize="16"  Background="{x:Null}"/>
                 <StackPanel Orientation="Horizontal" Grid.Column="1">
-                    <Button x:Name="layerUp" x:FieldModifier="private" Margin="5,5,0,5" Content="˄" Width="20" />
-                    <Button x:Name="layerDown" x:FieldModifier="private" Margin="0,5,0,5"  Content="˅" Width="20"  />
+                    <Button x:Name="layerUp" x:FieldModifier="private" Margin="5,5,0,5" Content="˄" Width="20" Click="layerUp_Click" />
+                    <Button x:Name="layerDown" x:FieldModifier="private" Margin="0,5,0,5"  Content="˅" Width="20" Click="layerDown_Click"  />
                 </StackPanel>
             </Grid>
             <Grid x:Name="elementLocate" Margin="5,0,5,3" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">

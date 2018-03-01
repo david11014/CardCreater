@@ -12,7 +12,7 @@ namespace CCCore
 		
 		Card();
 		~Card();
-
+		int width, height;
 		CardElement^ Get(int i);
 		void Set(CardElement^ ce);
 		void Set(int i, CardElement^ ce);

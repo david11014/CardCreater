@@ -4,7 +4,8 @@ using namespace System;
 
 Card::Card()
 {
-
+	width = 0;
+	height = 0;
 }
 
 Card::~Card()
@@ -95,17 +96,17 @@ void CCCore::Card::RemoveElements(int i)
 
 void CCCore::Card::Swap(int a, int b)
 {
-	if (a >= elements.Count || b >= elements.Count)
+	if ((a > b && (a >= elements.Count || b <= 0)) || (a < b && (b >= elements.Count || a <= 0)) || a == b)
 		return;
-
-	elements[a]->layer = b;
-	elements[b]->layer = a;
 
 	CardElement^ temp;
 	
 	temp = elements[a];
 	elements[a] = elements[b];
 	elements[b] = temp;
+
+	elements[a]->layer = a;
+	elements[b]->layer = b;
 }
 
 int CCCore::Card::ElementCount()

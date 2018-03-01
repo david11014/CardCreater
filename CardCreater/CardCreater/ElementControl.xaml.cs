@@ -123,14 +123,18 @@ namespace CardCreater
                 switch (_type)
                 {                    
                     case 0: //背景
+                        elementLocate.Visibility = Visibility.Collapsed;
                         textProperty.Visibility = Visibility.Collapsed;
                         numProperty.Visibility = Visibility.Collapsed;
-                        h -= 99;
+                        pictureSize.Visibility = Visibility.Collapsed;
+                        h  = 66;
                         break;
                     case 1: //邊框
+                        elementLocate.Visibility = Visibility.Collapsed;
                         textProperty.Visibility = Visibility.Collapsed;
                         numProperty.Visibility = Visibility.Collapsed;
-                        h -= 99;
+                        pictureSize.Visibility = Visibility.Collapsed;
+                        h  = 66;
                         break;
                     case 2: //圖片
                         textProperty.Visibility = Visibility.Collapsed;
@@ -317,13 +321,11 @@ namespace CardCreater
         }
 
         //TopClick
-
         public event ElementEventHandler TopClick;
         protected virtual void OnTopClick(ElementControlEventArgs e)
         {
             TopClick(this, e);
         }
-
         void RiseTopClickEvent()
         {
             try
@@ -344,7 +346,6 @@ namespace CardCreater
             _downflag = true;
             
         }
-
         private void elementTop_MouseUp(object sender, MouseButtonEventArgs e)
         {            
             if (_downflag)
@@ -352,6 +353,58 @@ namespace CardCreater
                 _downflag = false;               
                 RiseTopClickEvent();
             }
+        }
+
+        //layerUp Click
+        public event ElementEventHandler LayerUpClick;
+        protected virtual void OnLayerUpClick(ElementControlEventArgs e)
+        {
+            LayerUpClick(this, e);
+        }
+        void RaiselayerUpClickEvent()
+        {
+            try
+            {
+                OnLayerUpClick(new ElementControlEventArgs(_type,
+                    _layer, xUpDownControl.Value,
+                    yUpDownControl.Value,
+                    numUpDownControl.Value,
+                    pathTextBox.Text, Text));
+            }
+            catch
+            {
+                return;
+            }
+        }
+        private void layerUp_Click(object sender, RoutedEventArgs e)
+        {
+            RaiselayerUpClickEvent();
+        }
+
+        //layerdown Click
+        public event ElementEventHandler LayerDownClick;
+        protected virtual void OnLayerDownClick(ElementControlEventArgs e)
+        {
+            LayerDownClick(this, e);
+        }
+        void RaiselayerDownClickEvent()
+        {
+            try
+            {
+                OnLayerDownClick(new ElementControlEventArgs(_type,
+                    _layer, xUpDownControl.Value,
+                    yUpDownControl.Value,
+                    numUpDownControl.Value,
+                    pathTextBox.Text, Text));
+            }
+            catch
+            {
+                return;
+            }
+        }
+        private void layerDown_Click(object sender, RoutedEventArgs e)
+        {
+            RaiselayerDownClickEvent();
         }
     }
 

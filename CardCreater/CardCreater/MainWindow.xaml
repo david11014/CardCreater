@@ -5,13 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CardCreater"
         mc:Ignorable="d"
-        Title="MainWindow" Height="513.585" Width="945.742">
+        Title="MainWindow" Height="513.585" Width="945.742"
+        >
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="380*"/>
-            <ColumnDefinition Width="547*"/>
+            <ColumnDefinition Width="400"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-              
+        <local:UpDownControl x:Name="cardWidth" Text="Width: " Value="758" Margin="10,10,0,0" Width="155" VerticalAlignment="Top" HorizontalAlignment="Left" Height="30" ValueChange="cardWidth_ValueChange"/>
+        <local:UpDownControl x:Name="cardHeight" Text="Height:" Value="504" Margin="10,40,0,0" Width="155" VerticalAlignment="Top" HorizontalAlignment="Left" Height="30" ValueChange="cardHeight_ValueChange"/>
         <ComboBox x:Name="TypeSel" HorizontalAlignment="Left" Margin="203,10,0,0" VerticalAlignment="Top" Width="72" Height="32" SelectedIndex="0" FontSize="14">
             <ListBoxItem Content="邊框"/>
             <ListBoxItem Content="圖片"/>
@@ -20,10 +22,11 @@
         </ComboBox>
         <Button x:Name="addElementButtom" Content="+" HorizontalAlignment="Left" Margin="280,10,0,0" VerticalAlignment="Top" Width="45" Height="32" FontSize="14" Click="addElementButtom_Click"/>
         <Button x:Name="removeElementButtom" Content="-" HorizontalAlignment="Left" Margin="330,10,0,0" VerticalAlignment="Top" Width="45" Height="32" FontSize="14" Click="removeElementButtom_Click"/>
-        <ScrollViewer x:Name="scrollViewer" HorizontalAlignment="Left" Margin="0,52,0,0" Width="385">
+        <ScrollViewer x:Name="scrollViewer" HorizontalAlignment="Left" Margin="0,73,0,0" Width="385">
             <StackPanel x:Name="stack" HorizontalAlignment="Left"/>
         </ScrollViewer>
-        <Image x:Name="image" Grid.Column="1"/>
-        
+        <Image x:Name="image" Margin="0,0,0,0" SizeChanged="image_SizeChanged" Grid.Column="1" Stretch="None" />
+
+
     </Grid>
 </Window>

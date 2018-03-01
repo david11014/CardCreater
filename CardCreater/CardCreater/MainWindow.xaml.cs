@@ -51,20 +51,26 @@ namespace CardCreater
         public MainWindow()
         {
             InitializeComponent();
-                        
+            
+            card.width = cardWidth.Value;
+            card.height = cardHeight.Value;
+
             AddElement(0);
             elements[0].Selted = true;
             scrollViewer.Width = elements[0].Width + 15;
                        
         }
+
         void AddElement(int type)
         {
             ElementControl E = new ElementControl(type, elements.Count);
             elements.Add(E);
             elements.Last().TopClick += Element_Click;
             elements.Last().DataChanged += Element_DataChanged;
-            
-            switch(type)
+            elements.Last().LayerUpClick += LayerUp_Click;
+            elements.Last().LayerDownClick += LayerDown_Click;
+
+            switch (type)
             {
                 case 0:                    
                     card.Set(new CardBackground());
@@ -103,6 +109,24 @@ namespace CardCreater
             }
             ShowElements();
         }
+        void SwapElement(int a,int b)
+        {
+            if ((a > b && (a >= elements.Count || b <= 0)) || (a < b && (b >= elements.Count || a <= 0)) || a == b)
+                return;
+
+
+            card.Swap(a, b);
+
+            ElementControl temp;
+            temp = elements[a];
+            elements[a] = elements[b];
+            elements[b] = temp;
+
+            elements[a].Layer = a;
+            elements[b].Layer = b;
+
+            ShowElements();
+        }
         void ShowElements()
         {
             stack.Children.Clear();
@@ -113,17 +137,19 @@ namespace CardCreater
         }
         void Render()
         {
+            if (image == null)
+                return;
             DrawingGroup drawG = new DrawingGroup();
-
+            DrawRectangle(ref drawG);
             for (int i = 0; i < card.ElementCount(); i++)
             {
                 switch (card.Get(i).type)
                 {
                     case 0:
-                        DrawImage(card.Get(i), ref drawG);
+                        DrawBackGround(card.Get(i), ref drawG);
                         break;
                     case 1:
-                        DrawImage(card.Get(i), ref drawG);
+                        DrawBackGround(card.Get(i), ref drawG);
                         break;
                     case 2:
                         DrawImage(card.Get(i), ref drawG);
@@ -168,7 +194,14 @@ namespace CardCreater
             
             return textGeometry;
         }
-                
+
+        void DrawRectangle(ref DrawingGroup drawingGroup)
+        {
+            using (DrawingContext drawingContext = drawingGroup.Append())
+            {
+                drawingContext.DrawRectangle(null, new Media.Pen(Media.Brushes.Red, 3), new Rect(0, 0, card.width, card.height));
+            }
+        }
         void DrawText(CardText T, ref DrawingGroup drawingGroup)
         {
             
@@ -186,7 +219,6 @@ namespace CardCreater
             }
                        
         }
-
         void DrawImage(CardElement ce, ref DrawingGroup drawingGroup)
         {
             using (DrawingContext drawingContext = drawingGroup.Append())
@@ -194,11 +226,23 @@ namespace CardCreater
                 string path = ce.GetBackGroundPath();
                 if (path == "")
                     return;
+
                 BitmapImage source = new BitmapImage(new Uri(path));
                 //drawingContext.DrawImage(source, new Rect(new System.Windows.Size(image.Width, image.Height)));
-                drawingContext.DrawImage(source, new Rect(new System.Windows.Size(30,30)));
+                drawingContext.DrawImage(source, new Rect(ce.x,ce.y,source.Width,source.Height));
             }
                
+        }
+        void DrawBackGround(CardElement ce, ref DrawingGroup drawingGroup)
+        {
+            using (DrawingContext drawingContext = drawingGroup.Append())
+            {
+                string path = ce.GetBackGroundPath();
+                if (path == "")
+                    return;
+                BitmapImage source = new BitmapImage(new Uri(path));
+                drawingContext.DrawImage(source, new Rect(0, 0, card.width, card.height));
+            }
         }
         public void SaveDrawingToFile(Drawing drawing, string fileName, double scale)
         {
@@ -297,6 +341,30 @@ namespace CardCreater
 
         }
 
+        private void LayerUp_Click(object sender, ElementControlEventArgs e)
+        {
+            SwapElement(e.Layer, e.Layer - 1);
+        }
+        private void LayerDown_Click(object sender, ElementControlEventArgs e)
+        {
+            SwapElement(e.Layer, e.Layer + 1);
+        }
 
+        private void image_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            Render();
+        }
+
+        private void cardWidth_ValueChange(object sender, RoutedEventArgs e)
+        {
+            card.width = cardWidth.Value;            
+            Render();
+        }
+
+        private void cardHeight_ValueChange(object sender, RoutedEventArgs e)
+        {            
+            card.height = cardHeight.Value;
+            Render();
+        }
     }
 }

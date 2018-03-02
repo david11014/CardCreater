@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardCreater", "CardCreater\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CCCore", "CCCore\CCCore.vcxproj", "{63243376-81DD-4531-91F4-DCDE7A7FD992}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfColorFontDialog", "WpfColorFontDialog\WpfColorFontDialog.csproj", "{6C301B62-352A-4053-9B06-E148A85D47AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,22 @@ Global
 		{63243376-81DD-4531-91F4-DCDE7A7FD992}.Release|x64.Build.0 = Release|x64
 		{63243376-81DD-4531-91F4-DCDE7A7FD992}.Release|x86.ActiveCfg = Release|Win32
 		{63243376-81DD-4531-91F4-DCDE7A7FD992}.Release|x86.Build.0 = Release|Win32
+		{6C301B62-352A-4053-9B06-E148A85D47AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C301B62-352A-4053-9B06-E148A85D47AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C301B62-352A-4053-9B06-E148A85D47AA}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{6C301B62-352A-4053-9B06-E148A85D47AA}.Debug|ARM.Build.0 = Debug|Any CPU
+		{6C301B62-352A-4053-9B06-E148A85D47AA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6C301B62-352A-4053-9B06-E148A85D47AA}.Debug|x64.Build.0 = Debug|Any CPU
+		{6C301B62-352A-4053-9B06-E148A85D47AA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6C301B62-352A-4053-9B06-E148A85D47AA}.Debug|x86.Build.0 = Debug|Any CPU
+		{6C301B62-352A-4053-9B06-E148A85D47AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C301B62-352A-4053-9B06-E148A85D47AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C301B62-352A-4053-9B06-E148A85D47AA}.Release|ARM.ActiveCfg = Release|Any CPU
+		{6C301B62-352A-4053-9B06-E148A85D47AA}.Release|ARM.Build.0 = Release|Any CPU
+		{6C301B62-352A-4053-9B06-E148A85D47AA}.Release|x64.ActiveCfg = Release|Any CPU
+		{6C301B62-352A-4053-9B06-E148A85D47AA}.Release|x64.Build.0 = Release|Any CPU
+		{6C301B62-352A-4053-9B06-E148A85D47AA}.Release|x86.ActiveCfg = Release|Any CPU
+		{6C301B62-352A-4053-9B06-E148A85D47AA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -379,11 +379,14 @@ namespace CardCreater
             card.height = cardHeight.Value;
             Render();
         }
-        FontButton
+        
 
         private void FontButton_Click(object sender, ElementControlEventArgs e)
         {
-            SwapElement(e.Layer, e.Layer + 1);
+            ColorFontDialog CF = new ColorFontDialog(true, true, true);
+            CF.Owner = this;
+            CF.Font = FontInfo.GetControlFont(cardWidth);
+            CF.ShowDialog();
         }
 
     }

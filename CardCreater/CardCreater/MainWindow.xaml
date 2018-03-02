@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CardCreater"
         mc:Ignorable="d"
-        Title="MainWindow" Height="513.585" Width="945.742"
+        Title="Card Creater 2.0" Height="513.585" Width="945.742"
         >
     <Grid>
         <Grid.ColumnDefinitions>
@@ -14,7 +14,7 @@
         </Grid.ColumnDefinitions>
         <local:UpDownControl x:Name="cardWidth" Text="Width: " Value="758" Margin="10,10,0,0" Width="155" VerticalAlignment="Top" HorizontalAlignment="Left" Height="30" ValueChange="cardWidth_ValueChange"/>
         <local:UpDownControl x:Name="cardHeight" Text="Height:" Value="504" Margin="10,40,0,0" Width="155" VerticalAlignment="Top" HorizontalAlignment="Left" Height="30" ValueChange="cardHeight_ValueChange"/>
-        <ComboBox x:Name="TypeSel" HorizontalAlignment="Left" Margin="203,10,0,0" VerticalAlignment="Top" Width="72" Height="32" SelectedIndex="0" FontSize="14">
+        <ComboBox x:Name="TypeSel" HorizontalAlignment="Left" Margin="203,10,0,0" VerticalAlignment="Top" Width="72" Height="32" SelectedIndex="0" FontSize="14" BorderThickness="1" ToolTip="Add Element">
             <ListBoxItem Content="邊框"/>
             <ListBoxItem Content="圖片"/>
             <ListBoxItem Content="數字"/>

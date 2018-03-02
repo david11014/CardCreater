@@ -127,6 +127,7 @@ namespace CardCreater
                         textProperty.Visibility = Visibility.Collapsed;
                         numProperty.Visibility = Visibility.Collapsed;
                         pictureSize.Visibility = Visibility.Collapsed;
+                        LayerControl.Visibility = Visibility.Collapsed;
                         h  = 66;
                         break;
                     case 1: //邊框
@@ -286,17 +287,25 @@ namespace CardCreater
         }
 
         //Font buttom click
-        public static readonly RoutedEvent FontButtonClickEvent = EventManager.RegisterRoutedEvent(
-       "FontButtonClick", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ElementControl));
-        public event RoutedEventHandler FontButtonClick
+        public event ElementEventHandler FontButtonClick;
+        protected virtual void OnFontButtonClick(ElementControlEventArgs e)
         {
-            add { AddHandler(FontButtonClickEvent, value); }
-            remove { RemoveHandler(FontButtonClickEvent, value); }
+            FontButtonClick(this, e);
         }
         void RaiseFontButtonClickEvent()
         {
-            RoutedEventArgs newEventArgs = new RoutedEventArgs(ElementControl.FontButtonClickEvent);
-            RaiseEvent(newEventArgs);
+            try
+            {
+                OnFontButtonClick(new ElementControlEventArgs(_type,
+                    _layer, xUpDownControl.Value,
+                    yUpDownControl.Value,
+                    numUpDownControl.Value,
+                    pathTextBox.Text, Text));
+            }
+            catch
+            {
+                return;
+            }
         }
         private void fontButton_Click(object sender, RoutedEventArgs e)
         {
@@ -405,6 +414,32 @@ namespace CardCreater
         private void layerDown_Click(object sender, RoutedEventArgs e)
         {
             RaiselayerDownClickEvent();
+        }
+
+        //layerdown Click
+        public event ElementEventHandler DeletElementClick;
+        protected virtual void OnDeletElementClick(ElementControlEventArgs e)
+        {
+            DeletElementClick(this, e);
+        }
+        void RaiseDeletElementClickEvent()
+        {
+            try
+            {
+                OnDeletElementClick(new ElementControlEventArgs(_type,
+                    _layer, xUpDownControl.Value,
+                    yUpDownControl.Value,
+                    numUpDownControl.Value,
+                    pathTextBox.Text, Text));
+            }
+            catch
+            {
+                return;
+            }
+        }
+        private void deletElement_Click(object sender, RoutedEventArgs e)
+        {
+            RaiseDeletElementClickEvent();
         }
     }
 

@@ -20,7 +20,7 @@ using System.IO;
 using System.Windows;
 using Microsoft.Win32;
 using System.Collections.Generic;
-
+using WpfColorFontDialog;
 
 namespace CardCreater
 {
@@ -69,6 +69,8 @@ namespace CardCreater
             elements.Last().DataChanged += Element_DataChanged;
             elements.Last().LayerUpClick += LayerUp_Click;
             elements.Last().LayerDownClick += LayerDown_Click;
+            elements.Last().DeletElementClick += DeletElement_Click;
+            elements.Last().FontButtonClick += FontButton_Click;
 
             switch (type)
             {
@@ -176,6 +178,7 @@ namespace CardCreater
         Geometry CardText2Geometry(CCCore.CardText T)
         {
             Font f = T.font;
+            
             Media.FontFamily fontFamily = new Media.FontFamily(f.Name);
             Typeface typeface = new Typeface(fontFamily, (f.Style == System.Drawing.FontStyle.Italic ? FontStyles.Italic : FontStyles.Normal),
                          (f.Style == System.Drawing.FontStyle.Bold ? FontWeights.Bold : FontWeights.Normal),
@@ -186,11 +189,11 @@ namespace CardCreater
                    CultureInfo.GetCultureInfo("en-us"),
                    FlowDirection.LeftToRight,
                    typeface,
-                   48,
+                   f.Size,
                    System.Windows.Media.Brushes.Black // This brush does not matter since we use the geometry of the text. 
                    );
             
-            Geometry textGeometry = formattedText.BuildGeometry(new System.Windows.Point(0, 0));
+            Geometry textGeometry = formattedText.BuildGeometry(new System.Windows.Point(T.x, T.y));
             
             return textGeometry;
         }
@@ -341,6 +344,16 @@ namespace CardCreater
 
         }
 
+        private void DeletElement_Click(object sender, ElementControlEventArgs e)
+        {
+            RemoveElement(e.Layer);
+
+            if (currentEl >= elements.Count)
+                currentEl = elements.Count - 1;
+            else
+                currentEl = currentEl;
+        }
+
         private void LayerUp_Click(object sender, ElementControlEventArgs e)
         {
             SwapElement(e.Layer, e.Layer - 1);
@@ -366,5 +379,12 @@ namespace CardCreater
             card.height = cardHeight.Value;
             Render();
         }
+        FontButton
+
+        private void FontButton_Click(object sender, ElementControlEventArgs e)
+        {
+            SwapElement(e.Layer, e.Layer + 1);
+        }
+
     }
 }

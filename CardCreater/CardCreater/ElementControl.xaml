@@ -11,13 +11,14 @@
         <StackPanel Margin="0,0,0,0" >
             <Grid x:Name="elementTop" Margin="5,0,5,3" MouseEnter="top_MouseEnter" MouseLeave="top_MouseLeave" MouseDown="elementTop_MouseDown" MouseUp="elementTop_MouseUp">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="305*"/>
-                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="285"/>
+                    <ColumnDefinition Width="69*"/>
                 </Grid.ColumnDefinitions>
                 <Label x:Name="title" Content="Label" VerticalAlignment="Top" Height="30" FontSize="16"  Background="{x:Null}"/>
-                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                <StackPanel x:Name="LayerControl" Orientation="Horizontal" Grid.Column="1">
                     <Button x:Name="layerUp" x:FieldModifier="private" Margin="5,5,0,5" Content="˄" Width="20" Click="layerUp_Click" />
-                    <Button x:Name="layerDown" x:FieldModifier="private" Margin="0,5,0,5"  Content="˅" Width="20" Click="layerDown_Click"  />
+                    <Button x:Name="layerDown" x:FieldModifier="private" Margin="0,5,0,5"  Content="˅" Width="20" Click="layerDown_Click"/>
+                    <Button x:Name="deletElement" x:FieldModifier="private" Margin="0,5,0,5"  Content="x" Width="20" Click="deletElement_Click"/>
                 </StackPanel>
             </Grid>
             <Grid x:Name="elementLocate" Margin="5,0,5,3" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
@@ -40,7 +41,7 @@
                 <Button x:Name="pathButton" Content="..." Margin="0,0,10,0" VerticalAlignment="Top" Height="30" HorizontalAlignment="Right" Width="28" Click="pathButton_Click" />
             </Grid>
             <Grid x:Name="textProperty" Margin="5,0,5,3" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Height="63">
-                <RichTextBox x:Name="richTextBox" Margin="0,0,65,0" Height="63" TextChanged="richTextBox_TextChanged">
+                <RichTextBox x:Name="richTextBox" Margin="0,0,65,0" Height="63" TextChanged="richTextBox_TextChanged" Block.LineHeight="1">
                     <FlowDocument>
                         <Paragraph>
                             <Run Text="請輸入文字"/>

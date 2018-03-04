@@ -11,7 +11,7 @@
              xmlns:local="clr-namespace:WpfColorFontDialog"
              xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
              xmlns:sysCollection="clr-namespace:System.Collections;assembly=mscorlib">
-    <Grid>
+    <Grid Margin="0,0,0,0">
         <Grid.Resources>
             <DataTemplate x:Key="fontFamilyData">
                 <TextBlock TextBlock.FontSize="16"
@@ -45,9 +45,9 @@
         <Grid DataContext="{StaticResource familyCollection}"
               Margin="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="0.5*" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="100*"/>
+                <RowDefinition Height="50*" />
+                <RowDefinition Height="Auto" MinHeight="95" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250" />
@@ -146,10 +146,16 @@
                     <TextBlock Text="Font Color"
                                FontStyle="Italic" />
                 </GroupBox.Header>
-                <local:ColorPicker x:Name="colorPicker"
-                                   ColorChanged="colorPicker_ColorChanged"
-                                   Grid.Row="1"
-                                   Margin="10" />
+                <StackPanel Grid.Row="1" Margin="10,10,10,0">
+                    <local:ColorPicker x:Name="colorPicker"
+                                   ColorChanged="colorPicker_ColorChanged"                                   
+                                   Margin="0,0,0,0" Height="24" VerticalAlignment="Top" />
+                    <local:ColorPicker x:Name="borderColorPicker"
+                                   ColorChanged="colorPicker_ColorChanged"                                   
+                                   Margin="0,3,0,0" Height="24" VerticalAlignment="Top" />
+                </StackPanel>
+
+
             </GroupBox>
         </Grid>
     </Grid>

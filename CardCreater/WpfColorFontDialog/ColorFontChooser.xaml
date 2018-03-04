@@ -45,9 +45,9 @@
         <Grid DataContext="{StaticResource familyCollection}"
               Margin="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="100*"/>
-                <RowDefinition Height="50*" />
-                <RowDefinition Height="Auto" MinHeight="95" />
+                <RowDefinition Height="79*"/>
+                <RowDefinition Height="53*" />
+                <RowDefinition Height="Auto" MinHeight="68" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250" />
@@ -56,7 +56,7 @@
             </Grid.ColumnDefinitions>
             <GroupBox Grid.RowSpan="3">
                 <GroupBox.Header>
-                    <TextBlock Text="Font Family"
+                    <TextBlock Text="字型"
                                FontStyle="Italic" />
                 </GroupBox.Header>
                 <Grid>
@@ -77,7 +77,7 @@
             </GroupBox>
             <GroupBox Grid.Column="1">
                 <GroupBox.Header>
-                    <TextBlock Text="Style - Weight"
+                    <TextBlock Text="樣式 - 粗細"
                                FontStyle="Italic" />
                 </GroupBox.Header>
                 <ListBox Name="lstTypefaces"
@@ -90,7 +90,7 @@
             </GroupBox>
             <GroupBox Grid.Column="2">
                 <GroupBox.Header>
-                    <TextBlock Text="Font Size" />
+                    <TextBlock Text="字體大小" />
                 </GroupBox.Header>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -119,7 +119,7 @@
                       Grid.Column="1"
                       Margin="5,0,0,0">
                 <GroupBox.Header>
-                    <TextBlock Text="Sample Text"
+                    <TextBlock Text="測試文字"
                                FontStyle="Italic" />
                 </GroupBox.Header>
                 <TextBox Name="txtSampleText"
@@ -129,31 +129,28 @@
                          TextAlignment="Center"
                          TextWrapping="Wrap"
                          VerticalContentAlignment="Center"
-                         Text="The quick brown fox jumps over the lazy dog"
+                         Text="English test 中文測試"
                          Margin="0"
                          FontFamily="{Binding Source, Source={StaticResource familyCollection}}"
                          FontWeight="{Binding SelectedItem.Weight, ElementName=lstTypefaces}"
                          FontStretch="{Binding SelectedItem.Stretch, ElementName=lstTypefaces}"
                          FontStyle="{Binding SelectedItem.Style, ElementName=lstTypefaces}"
                          FontSize="{Binding Text, Converter={StaticResource FontSizeListBoxItemToDoubleConverter}, ElementName=tbFontSize}"
-                         Background="{x:Null}" />
+                         Background="{x:Null}"                         
+                         />
             </GroupBox>
             <GroupBox Grid.Column="1"
                       Grid.ColumnSpan="2"
                       x:Name="groupBoxColorPicker"
                       Grid.Row="2">
                 <GroupBox.Header>
-                    <TextBlock Text="Font Color"
+                    <TextBlock Text="字體顏色"
                                FontStyle="Italic" />
                 </GroupBox.Header>
-                <StackPanel Grid.Row="1" Margin="10,10,10,0">
-                    <local:ColorPicker x:Name="colorPicker"
+                <local:ColorPicker x:Name="colorPicker"
                                    ColorChanged="colorPicker_ColorChanged"                                   
-                                   Margin="0,0,0,0" Height="24" VerticalAlignment="Top" />
-                    <local:ColorPicker x:Name="borderColorPicker"
-                                   ColorChanged="colorPicker_ColorChanged"                                   
-                                   Margin="0,3,0,0" Height="24" VerticalAlignment="Top" />
-                </StackPanel>
+                                   Margin="10,10,10,0" Height="24" VerticalAlignment="Top" 
+                                   Grid.Row="1" />
 
 
             </GroupBox>

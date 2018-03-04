@@ -72,6 +72,7 @@ namespace CardCreater
             elements.Last().LayerDownClick += LayerDown_Click;
             elements.Last().DeletElementClick += DeletElement_Click;
             elements.Last().FontButtonClick += FontButton_Click;
+            elements.Last().TextBorderSatusChange += TextBorderCheck_Change;
 
             fonts.Add(FontInfo.GetControlFont(cardWidth));
 
@@ -222,10 +223,22 @@ namespace CardCreater
                
                 var converter = new System.Windows.Media.BrushConverter();
                 var inBrush = fonts[T.layer].BrushColor;
-                Media.Pen p = new Media.Pen(System.Windows.Media.Brushes.Maroon, 1.0);
+
+                if((bool)elements[T.layer].textBorderCheckBox.IsChecked)
+                {
+                    
+                    Media.Pen p = new Media.Pen(elements[T.layer].textBorderColor.SelectedColor.Brush, elements[T.layer].textBorderSize.Value);
+                    drawingContext.DrawGeometry(inBrush, p, textGeometry);
+                }
+                else
+                {
+                    drawingContext.DrawGeometry(inBrush, null, textGeometry);
+                }
+
+                
 
                 // Draw the outline based on the properties that are set.
-                drawingContext.DrawGeometry(inBrush, p, textGeometry);
+                
             }
                        
         }
@@ -407,5 +420,11 @@ namespace CardCreater
             }
         }
 
+        private void TextBorderCheck_Change(object sender, RoutedEventArgs e)
+        {         
+            Render();
+        }
+
+        
     }
 }

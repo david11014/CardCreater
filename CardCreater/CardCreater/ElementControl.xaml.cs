@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CCCore;
+using WpfColorFontDialog;
 
 namespace CardCreater
 {
@@ -24,6 +25,7 @@ namespace CardCreater
     
     public class ElementControlEventArgs : EventArgs
     {
+       
         public ElementControlEventArgs(int type, int layer, int x, int y,int num,string path,string text)
         {
             _type = type;
@@ -98,6 +100,7 @@ namespace CardCreater
             typeName[2] = "圖片";
             typeName[3] = "數字";
             typeName[4] = "文字";
+            textBorderColor.SelectedColor = new FontColor("Black", Brushes.Black);
         }
         public ElementControl(int type, int layer )
         {
@@ -107,7 +110,7 @@ namespace CardCreater
             typeName[2] = "圖片";
             typeName[3] = "數字";
             typeName[4] = "文字";
-
+            textBorderColor.SelectedColor = new FontColor("Black", Brushes.Black);
             Type = type;
             Layer = layer;
         }
@@ -119,12 +122,13 @@ namespace CardCreater
             {
                 _type = value;
                 title.Content = _layer.ToString() + ": " + typeName[_type];
-                int h = 231;
+                int h = 264;
                 switch (_type)
                 {                    
                     case 0: //背景
                         elementLocate.Visibility = Visibility.Collapsed;
                         textProperty.Visibility = Visibility.Collapsed;
+                        textContent.Visibility = Visibility.Collapsed;
                         numProperty.Visibility = Visibility.Collapsed;
                         pictureSize.Visibility = Visibility.Collapsed;
                         LayerControl.Visibility = Visibility.Collapsed;
@@ -133,18 +137,21 @@ namespace CardCreater
                     case 1: //邊框
                         elementLocate.Visibility = Visibility.Collapsed;
                         textProperty.Visibility = Visibility.Collapsed;
+                        textContent.Visibility = Visibility.Collapsed;
                         numProperty.Visibility = Visibility.Collapsed;
                         pictureSize.Visibility = Visibility.Collapsed;
                         h  = 66;
                         break;
                     case 2: //圖片
                         textProperty.Visibility = Visibility.Collapsed;
+                        textContent.Visibility = Visibility.Collapsed;
                         numProperty.Visibility = Visibility.Collapsed;
-                        h -= 99;
+                        h = 132;
                         break;          
                     case 3: //數字
                         textProperty.Visibility = Visibility.Collapsed;
-                        h -= 66;
+                        textContent.Visibility = Visibility.Collapsed;
+                        h -= 99;
                         break;
                     case 4: //文字
                         numProperty.Visibility = Visibility.Collapsed;
@@ -247,25 +254,11 @@ namespace CardCreater
             }
                 
         }
-
-        //ValueChange
-        public static readonly RoutedEvent ValueChangeEvent = EventManager.RegisterRoutedEvent(
-        "ValueChange", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ElementControl));
-        public event RoutedEventHandler ValueChange
-        {
-            add { AddHandler(ValueChangeEvent, value); }
-            remove { RemoveHandler(ValueChangeEvent, value); }
-        }
-        void RaiseValueChangeEvent()
-        {
-            RoutedEventArgs newEventArgs = new RoutedEventArgs(ElementControl.ValueChangeEvent);
-            RaiseEvent(newEventArgs);
-        }
         private void element_ValueCahange(object sender, RoutedEventArgs e)
         {
-            RaiseValueChangeEvent();
             RiseDataChangedEvent();
         }
+        
 
         //TextChange
         public static readonly RoutedEvent TextChangeEvent = EventManager.RegisterRoutedEvent(
@@ -440,6 +433,35 @@ namespace CardCreater
         private void deletElement_Click(object sender, RoutedEventArgs e)
         {
             RaiseDeletElementClickEvent();
+        }
+
+        //TextBorderSatusChange
+        public static readonly RoutedEvent TextBorderSatusChangeEvent = EventManager.RegisterRoutedEvent(
+        "TextBorderSatusChange", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ElementControl));
+        public event RoutedEventHandler TextBorderSatusChange
+        {
+            add { AddHandler(TextBorderSatusChangeEvent, value); }
+            remove { RemoveHandler(TextBorderSatusChangeEvent, value); }
+        }
+        void RaiseTextBorderSatusChangeEvent()
+        {
+            RoutedEventArgs newEventArgs = new RoutedEventArgs(ElementControl.TextBorderSatusChangeEvent);
+            RaiseEvent(newEventArgs);
+        }
+        private void textBorderCheckBox_CheckChange(object sender, RoutedEventArgs e)
+        {
+            if (textBorderColor == null || textBorderSize == null)
+                return;
+
+            textBorderColor.IsEnabled = (bool)textBorderCheckBox.IsChecked;
+            textBorderSize.IsEnabled = (bool)textBorderCheckBox.IsChecked;
+
+            RaiseTextBorderSatusChangeEvent();
+        }
+
+        private void textBorderColor_ColorChanged(object sender, RoutedEventArgs e)
+        {
+            RaiseTextBorderSatusChangeEvent();
         }
     }
 

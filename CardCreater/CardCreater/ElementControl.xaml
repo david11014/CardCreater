@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CardCreater"
-             mc:Ignorable="d" Height="231" Width="365" Background="#FFB4B4B2"
+             xmlns:colorPick="clr-namespace:WpfColorFontDialog;assembly=WpfColorFontDialog"
+             mc:Ignorable="d" Height="264" Width="365" Background="#FFB4B4B2"
              MouseEnter="top_MouseEnter" MouseLeave="top_MouseLeave" BorderThickness="0,0,0,0" BorderBrush="#FF3E3E3E">
 
     <Grid>
@@ -40,15 +41,24 @@
                 <TextBox x:Name="pathTextBox" TextWrapping="Wrap" IsReadOnly="True" Text="File path" Margin="0,0,43,0"  Height="30"/>
                 <Button x:Name="pathButton" Content="..." Margin="0,0,10,0" VerticalAlignment="Top" Height="30" HorizontalAlignment="Right" Width="28" Click="pathButton_Click" />
             </Grid>
-            <Grid x:Name="textProperty" Margin="5,0,5,3" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Height="63">
-                <RichTextBox x:Name="richTextBox" Margin="0,0,65,0" Height="63" TextChanged="richTextBox_TextChanged" Block.LineHeight="1">
+            <Grid x:Name="textProperty" Margin="5,0,5,3" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Height="30">
+
+
+                <Button x:Name="fontButton" Content="Font" VerticalAlignment="Top" Height="30" Click="fontButton_Click" RenderTransformOrigin="1.62,0.55" HorizontalAlignment="Left" Width="50"/>
+                
+                <CheckBox x:Name="textBorderCheckBox" Content="" HorizontalAlignment="Left" Margin="92,5,0,0" VerticalAlignment="Top" IsChecked="True" Checked="textBorderCheckBox_CheckChange" Unchecked="textBorderCheckBox_CheckChange"/>                
+                <local:UpDownControl x:Name="textBorderSize" Value="5" Text="外框:" HorizontalAlignment="Left" Margin="112,0,0,0" VerticalAlignment="Top" Height="30" Width="144" ValueChange="element_ValueCahange"/>
+                <colorPick:ColorPicker x:Name="textBorderColor" HorizontalAlignment="Right" Width="99" ColorChanged="textBorderColor_ColorChanged"/>
+            </Grid>
+            <Grid x:Name="textContent" Margin="5,0,5,3" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Height="63">
+                <RichTextBox x:Name="richTextBox" Height="63" TextChanged="richTextBox_TextChanged" Block.LineHeight="1">
                     <FlowDocument>
                         <Paragraph>
                             <Run Text="請輸入文字"/>
                         </Paragraph>
                     </FlowDocument>
                 </RichTextBox>
-                <Button x:Name="fontButton" Content="Font" Margin="0,0,10,0" VerticalAlignment="Top" Height="30" HorizontalAlignment="Right" Width="50" Click="fontButton_Click"/>
+
             </Grid>
         </StackPanel>
 

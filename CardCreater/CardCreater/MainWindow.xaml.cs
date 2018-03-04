@@ -186,15 +186,9 @@ namespace CardCreater
         }
 
         Geometry CardText2Geometry(CCCore.CardText T)
-        {
-            Font f = T.font;
-            FontInfo F = fonts[T.layer];
-
+        {            
+            FontInfo F = fonts[T.layer];           
             
-            Media.FontFamily fontFamily = new Media.FontFamily(f.Name);
-            //Typeface typeface = new Typeface(fontFamily, (f.Style == System.Drawing.FontStyle.Italic ? FontStyles.Italic : FontStyles.Normal),
-            //             (f.Style == System.Drawing.FontStyle.Bold ? FontWeights.Bold : FontWeights.Normal),
-            //                        FontStretches.Normal);
             Typeface typeface = new Typeface(F.Family, F.Typeface.Style, F.Weight, F.Stretch);
 
             FormattedText formattedText = new FormattedText(
@@ -203,7 +197,7 @@ namespace CardCreater
                    FlowDirection.LeftToRight,
                    typeface,
                    F.Size,
-                   F.BrushColor // This brush does not matter since we use the geometry of the text. 
+                   Media.Brushes.Black
                    );
             
             Geometry textGeometry = formattedText.BuildGeometry(new System.Windows.Point(T.x, T.y));
@@ -227,7 +221,7 @@ namespace CardCreater
                 Geometry textGeometry = CardText2Geometry(T);
                
                 var converter = new System.Windows.Media.BrushConverter();
-                var inBrush = (Media.Brush)converter.ConvertFromString(T.GetColorHex());
+                var inBrush = fonts[T.layer].BrushColor;
                 Media.Pen p = new Media.Pen(System.Windows.Media.Brushes.Maroon, 1.0);
 
                 // Draw the outline based on the properties that are set.
@@ -399,12 +393,18 @@ namespace CardCreater
         {
             ColorFontDialog CF = new ColorFontDialog(true, true, true);
             CF.Owner = this;
-            CF.Font = FontInfo.GetControlFont(cardWidth);
-            CF.ShowDialog();
+            CF.Font = fonts[e.Layer];
 
-            fonts[e.Layer] = CF.Font;
-            Render();
-            
+            CF.FontSizes = new int[] { 20, 30, 40, 50, 60 };
+            if (CF.ShowDialog() == true)
+            {
+                FontInfo font = CF.Font;
+                if (font != null)
+                {
+                    fonts[e.Layer] = CF.Font;
+                    Render();
+                }
+            }
         }
 
     }

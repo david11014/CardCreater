@@ -33,6 +33,7 @@ namespace CardCreater
        
         Card card = new Card();
         List<ElementControl> elements = new List<ElementControl>();
+        List<FontInfo> fonts = new List<FontInfo>();
 
         int _currentel = 0;
         public int currentEl
@@ -72,6 +73,8 @@ namespace CardCreater
             elements.Last().DeletElementClick += DeletElement_Click;
             elements.Last().FontButtonClick += FontButton_Click;
 
+            fonts.Add(FontInfo.GetControlFont(cardWidth));
+
             switch (type)
             {
                 case 0:                    
@@ -107,7 +110,8 @@ namespace CardCreater
                 }
 
                 elements.RemoveAt(i);
-                card.RemoveElements(i);                
+                fonts.RemoveAt(i);
+                card.RemoveElements(i);                                
             }
             ShowElements();
         }
@@ -126,6 +130,12 @@ namespace CardCreater
 
             elements[a].Layer = a;
             elements[b].Layer = b;
+
+            FontInfo tempF;
+            tempF = fonts[a];
+
+            fonts[a] = fonts[b];
+            fonts[b] = tempF;
 
             ShowElements();
         }
@@ -178,19 +188,22 @@ namespace CardCreater
         Geometry CardText2Geometry(CCCore.CardText T)
         {
             Font f = T.font;
+            FontInfo F = fonts[T.layer];
+
             
             Media.FontFamily fontFamily = new Media.FontFamily(f.Name);
-            Typeface typeface = new Typeface(fontFamily, (f.Style == System.Drawing.FontStyle.Italic ? FontStyles.Italic : FontStyles.Normal),
-                         (f.Style == System.Drawing.FontStyle.Bold ? FontWeights.Bold : FontWeights.Normal),
-                                    FontStretches.Normal);
-            
+            //Typeface typeface = new Typeface(fontFamily, (f.Style == System.Drawing.FontStyle.Italic ? FontStyles.Italic : FontStyles.Normal),
+            //             (f.Style == System.Drawing.FontStyle.Bold ? FontWeights.Bold : FontWeights.Normal),
+            //                        FontStretches.Normal);
+            Typeface typeface = new Typeface(F.Family, F.Typeface.Style, F.Weight, F.Stretch);
+
             FormattedText formattedText = new FormattedText(
                    T.Text,
                    CultureInfo.GetCultureInfo("en-us"),
                    FlowDirection.LeftToRight,
                    typeface,
-                   f.Size,
-                   System.Windows.Media.Brushes.Black // This brush does not matter since we use the geometry of the text. 
+                   F.Size,
+                   F.BrushColor // This brush does not matter since we use the geometry of the text. 
                    );
             
             Geometry textGeometry = formattedText.BuildGeometry(new System.Windows.Point(T.x, T.y));
@@ -247,6 +260,7 @@ namespace CardCreater
                 drawingContext.DrawImage(source, new Rect(0, 0, card.width, card.height));
             }
         }
+
         public void SaveDrawingToFile(Drawing drawing, string fileName, double scale)
         {
             var drawingImage = new System.Windows.Controls.Image { Source = new DrawingImage(drawing) };
@@ -265,6 +279,7 @@ namespace CardCreater
                 encoder.Save(stream);
             }
         }
+
         private void Element_DataChanged(object sender, ElementControlEventArgs e)
         {
             var el = new CardElement();
@@ -380,13 +395,16 @@ namespace CardCreater
             Render();
         }
         
-
         private void FontButton_Click(object sender, ElementControlEventArgs e)
         {
             ColorFontDialog CF = new ColorFontDialog(true, true, true);
             CF.Owner = this;
             CF.Font = FontInfo.GetControlFont(cardWidth);
             CF.ShowDialog();
+
+            fonts[e.Layer] = CF.Font;
+            Render();
+            
         }
 
     }

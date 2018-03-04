@@ -64,6 +64,7 @@ namespace CCCore
 		Font^ font;
 		Color color;
 		
+
 		CardText();
 		CardText(CardText %source);
 		~CardText();
@@ -72,5 +73,6 @@ namespace CCCore
 		String^ GetText();
 		void SetText(String^ s);
 	};
+
 }
 

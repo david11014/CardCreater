@@ -155,9 +155,6 @@ namespace CardCreater
 
             DrawingGroup drawG = new DrawingGroup();
             
-            System.Diagnostics.Debug.Assert(RenderDebug(ref drawG));
-            
-
             for (int i = 0; i < card.ElementCount(); i++)
             {
                 switch (card.Get(i).type)
@@ -169,7 +166,7 @@ namespace CardCreater
                         DrawBackGround(card.Get(i), ref drawG);
                         break;
                     case 2:
-                        DrawImage(card.Get(i), ref drawG);
+                        DrawImage((CardImage)card.Get(i), ref drawG);
                         break;
                     case 3:
 
@@ -179,15 +176,23 @@ namespace CardCreater
                         break;
                 }
             }
+            DrawingGroup drawGR = drawG.Clone();
+            
+            DrawingImage returnDrawingImageSource = new DrawingImage(drawGR);
+            returnDrawingImageSource.Freeze();
 
+            System.Diagnostics.Debug.Assert(RenderDebug(ref drawG));
             DrawingImage drawingImageSource = new DrawingImage(drawG);
+            
             drawingImageSource.Freeze();
 
             image.BeginInit();
             image.Source = drawingImageSource;
             image.EndInit();
 
-            return drawingImageSource;
+            
+            
+            return returnDrawingImageSource;
 
         }
                 
@@ -221,7 +226,7 @@ namespace CardCreater
         {
             using (DrawingContext drawingContext = drawingGroup.Append())
             {
-                drawingContext.DrawRectangle(null, new Media.Pen(Media.Brushes.Red, 4), new Rect(-2, -2, card.width+2, card.height+2));
+                drawingContext.DrawRectangle(null, new Media.Pen(Media.Brushes.Red, 2), new Rect(-1, -1, card.width+2, card.height+2));
             }
         }
         void DrawText(CardText T, ref DrawingGroup drawingGroup)
@@ -249,17 +254,17 @@ namespace CardCreater
             }
                        
         }
-        void DrawImage(CardElement ce, ref DrawingGroup drawingGroup)
+        void DrawImage(CardImage ci, ref DrawingGroup drawingGroup)
         {
             using (DrawingContext drawingContext = drawingGroup.Append())
             {
-                string path = ce.GetBackGroundPath();
+                string path = ci.GetBackGroundPath();
                 if (path == "")
                     return;
 
                 BitmapImage source = new BitmapImage(new Uri(path));
-                //drawingContext.DrawImage(source, new Rect(new System.Windows.Size(image.Width, image.Height)));
-                drawingContext.DrawImage(source, new Rect(ce.x,ce.y,source.Width,source.Height));
+                    
+                drawingContext.DrawImage(source, new Rect(ci.x,ci.y,ci.Width,ci.Height));
             }
                
         }
@@ -321,6 +326,8 @@ namespace CardCreater
                     ci.x = (int)e.Locate.X;
                     ci.y = (int)e.Locate.Y;
                     ci.bgPath = e.Path;
+                    ci.Width = elements[e.Layer].pictureWidth.Value;
+                    ci.Height = elements[e.Layer].pictureHeight.Value;
                     card.Set(e.Layer, ci);
                     break;
                 case 3:
@@ -443,8 +450,7 @@ namespace CardCreater
             if (saveFileDialog.ShowDialog() == true)
             {
                 SaveDrawingToFile(a, saveFileDialog.FileName, 1);
-            }
-                
+            }               
             
         }
 

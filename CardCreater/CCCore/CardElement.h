@@ -44,6 +44,8 @@ namespace CCCore
 		CardImage();
 		CardImage(CardImage %source);
 		~CardImage();
+
+		int Width, Height;
 	};
 
 	public ref class CardImgNum : CardElement

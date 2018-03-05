@@ -70,14 +70,15 @@ CCCore::CardFram::~CardFram()
 }
 
 /**CardImage**/
-CCCore::CardImage::CardImage()
+CCCore::CardImage::CardImage():Width(0),Height(0)
 {
 	type =2;
 }
 
-CCCore::CardImage::CardImage(CardImage % source) :CardElement(source)
+CCCore::CardImage::CardImage(CardImage % source) :CardElement(source),Width(source.Width), Height(source.Height)
 {
 	type = 2;
+	
 }
 
 CCCore::CardImage::~CardImage()

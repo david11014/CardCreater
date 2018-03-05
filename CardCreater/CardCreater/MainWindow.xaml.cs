@@ -148,12 +148,16 @@ namespace CardCreater
 
             Render();
         }
-        void Render()
+        DrawingImage Render()
         {
             if (image == null)
-                return;
+                return null;
+
             DrawingGroup drawG = new DrawingGroup();
-            DrawRectangle(ref drawG);
+            
+            System.Diagnostics.Debug.Assert(RenderDebug(ref drawG));
+            
+
             for (int i = 0; i < card.ElementCount(); i++)
             {
                 switch (card.Get(i).type)
@@ -182,8 +186,15 @@ namespace CardCreater
             image.BeginInit();
             image.Source = drawingImageSource;
             image.EndInit();
-            //ImageDrawing a = new ImageDrawing(drawingImageSource, new Rect(new System.Windows.Size(image.Width, image.Height)));
-            //SaveDrawingToFile(a, "aa.bmp", 1);
+
+            return drawingImageSource;
+
+        }
+                
+        bool RenderDebug(ref DrawingGroup drawG)
+        {
+            DrawRectangle(ref drawG);
+            return true;
         }
 
         Geometry CardText2Geometry(CCCore.CardText T)
@@ -210,7 +221,7 @@ namespace CardCreater
         {
             using (DrawingContext drawingContext = drawingGroup.Append())
             {
-                drawingContext.DrawRectangle(null, new Media.Pen(Media.Brushes.Red, 3), new Rect(0, 0, card.width, card.height));
+                drawingContext.DrawRectangle(null, new Media.Pen(Media.Brushes.Red, 4), new Rect(-2, -2, card.width+2, card.height+2));
             }
         }
         void DrawText(CardText T, ref DrawingGroup drawingGroup)
@@ -234,10 +245,6 @@ namespace CardCreater
                 {
                     drawingContext.DrawGeometry(inBrush, null, textGeometry);
                 }
-
-                
-
-                // Draw the outline based on the properties that are set.
                 
             }
                        
@@ -425,6 +432,25 @@ namespace CardCreater
             Render();
         }
 
-        
+        private void saveFileMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            DrawingImage drawingImageSource = Render();
+            drawingImageSource.Freeze();
+            ImageDrawing a = new ImageDrawing(drawingImageSource, new Rect(new System.Windows.Size(drawingImageSource.Width, drawingImageSource.Height)));
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "BMP (*.bmp)|*.bmp";
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                SaveDrawingToFile(a, saveFileDialog.FileName, 1);
+            }
+                
+            
+        }
+
+        private void exitFileMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
+        }
     }
 }

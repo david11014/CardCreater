@@ -12,20 +12,29 @@
             <ColumnDefinition Width="400"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <local:UpDownControl x:Name="cardWidth" Text="Width: " Value="758" Margin="10,10,0,0" Width="155" VerticalAlignment="Top" HorizontalAlignment="Left" Height="30" ValueChange="cardWidth_ValueChange"/>
-        <local:UpDownControl x:Name="cardHeight" Text="Height:" Value="504" Margin="10,40,0,0" Width="155" VerticalAlignment="Top" HorizontalAlignment="Left" Height="30" ValueChange="cardHeight_ValueChange"/>
-        <ComboBox x:Name="TypeSel" HorizontalAlignment="Left" Margin="203,10,0,0" VerticalAlignment="Top" Width="72" Height="32" SelectedIndex="0" FontSize="14" BorderThickness="1" ToolTip="Add Element">
+        <Menu x:Name="menu" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="400" FontSize="14">
+            <MenuItem Header="_File">
+                <MenuItem x:Name="saveFileMenuItem" Header="_Save" Click="saveFileMenuItem_Click"/>
+                <Separator />
+                <MenuItem x:Name="exitFileMenuItem" Header="_Exit" Click="exitFileMenuItem_Click"/>
+            </MenuItem>
+        </Menu>
+        <local:UpDownControl x:Name="cardWidth" Text="Width: " Value="758" Margin="3,29,0,0" Width="155" VerticalAlignment="Top" HorizontalAlignment="Left" Height="30" ValueChange="cardWidth_ValueChange"/>
+        <local:UpDownControl x:Name="cardHeight" Text="Height:" Value="504" Margin="3,59,0,0" Width="155" VerticalAlignment="Top" HorizontalAlignment="Left" Height="30" ValueChange="cardHeight_ValueChange"/>
+        <ComboBox x:Name="TypeSel" HorizontalAlignment="Left" Margin="201,33,0,0" VerticalAlignment="Top" Width="72" Height="26" SelectedIndex="0" FontSize="14" BorderThickness="1" ToolTip="Add Element">
             <ListBoxItem Content="邊框"/>
             <ListBoxItem Content="圖片"/>
             <ListBoxItem Content="數字"/>
             <ListBoxItem Content="文字"/>
         </ComboBox>
-        <Button x:Name="addElementButtom" Content="+" HorizontalAlignment="Left" Margin="280,10,0,0" VerticalAlignment="Top" Width="45" Height="32" FontSize="14" Click="addElementButtom_Click"/>
-        <Button x:Name="removeElementButtom" Content="-" HorizontalAlignment="Left" Margin="330,10,0,0" VerticalAlignment="Top" Width="45" Height="32" FontSize="14" Click="removeElementButtom_Click"/>
-        <ScrollViewer x:Name="scrollViewer" HorizontalAlignment="Left" Margin="0,73,0,0" Width="385">
+        <Button x:Name="addElementButtom" Content="+" HorizontalAlignment="Left" Margin="278,33,0,0" VerticalAlignment="Top" Width="45" Height="26" FontSize="14" Click="addElementButtom_Click"/>
+        <Button x:Name="removeElementButtom" Content="-" HorizontalAlignment="Left" Margin="328,33,0,0" VerticalAlignment="Top" Width="45" Height="26" FontSize="14" Click="removeElementButtom_Click"/>
+        <ScrollViewer x:Name="scrollViewer" HorizontalAlignment="Left" Margin="0,94,0,0" Width="385">
             <StackPanel x:Name="stack" HorizontalAlignment="Left"/>
         </ScrollViewer>
         <Image x:Name="image" Margin="0,0,0,0" SizeChanged="image_SizeChanged" Grid.Column="1" Stretch="None" />
+
+
 
 
     </Grid>

@@ -264,6 +264,20 @@ namespace CardCreater
             }
                        
         }
+        void DrawImageNum(CardImgNum cn, ref DrawingGroup drawingGroup)
+        {
+            using (DrawingContext drawingContext = drawingGroup.Append())
+            {
+                string path = cn.GetBackGroundPath();
+                if (path == "")
+                    return;
+
+                //BitmapImage source = new BitmapImage(new Uri(path));
+                //CroppedBitmap CroppedSource = new CroppedBitmap(source, new Int32Rect(0, 0, halfWidth, height));
+                //drawingContext.DrawImage(source, new Rect(cn.x, cn.y, cn.Width, cn.Height));
+            }
+
+        }
         void DrawImage(CardImage ci, ref DrawingGroup drawingGroup)
         {
             using (DrawingContext drawingContext = drawingGroup.Append())
@@ -300,7 +314,19 @@ namespace CardCreater
             var bitmap = new RenderTargetBitmap((int)width, (int)height, 96, 96, PixelFormats.Pbgra32);
             bitmap.Render(drawingImage);
 
-            var encoder = new PngBitmapEncoder();
+            string Extension = System.IO.Path.GetExtension(fileName).ToLower();
+
+
+            BitmapEncoder encoder;
+            if (Extension == ".gif")
+                encoder = new GifBitmapEncoder();
+            else if (Extension == ".png")
+                encoder = new PngBitmapEncoder();
+            else if (Extension == ".jpg")
+                encoder = new JpegBitmapEncoder();
+            else
+                return;
+
             encoder.Frames.Add(BitmapFrame.Create(bitmap));
 
             using (var stream = new FileStream(fileName, FileMode.Create))
@@ -453,10 +479,11 @@ namespace CardCreater
         {
             DrawingImage drawingImageSource = Render();
             drawingImageSource.Freeze();
+
             ImageDrawing a = new ImageDrawing(drawingImageSource, new Rect(new System.Windows.Size(drawingImageSource.Width, drawingImageSource.Height)));
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "BMP (*.bmp)|*.bmp";
+            saveFileDialog.Filter = "PNG (*.png)|*.png|JPG (*.jpg)|*.jpg|GIF (*.gif)|*.gif";
             if (saveFileDialog.ShowDialog() == true)
             {
                 SaveDrawingToFile(a, saveFileDialog.FileName, 1);

@@ -216,8 +216,9 @@ namespace CardCreater
                    F.Size,
                    Media.Brushes.Black
                    );
-            
+
             Geometry textGeometry = formattedText.BuildGeometry(new System.Windows.Point(T.x, T.y));
+            
             
             return textGeometry;
         }
@@ -231,7 +232,10 @@ namespace CardCreater
         }
         void DrawText(CardText T, ref DrawingGroup drawingGroup)
         {
-            
+
+            if (T.Text == "")
+                return;
+
            using (DrawingContext drawingContext = drawingGroup.Append())
            {
                 // Build the geometry object that represents the text.
@@ -242,9 +246,15 @@ namespace CardCreater
 
                 if((bool)elements[T.layer].textBorderCheckBox.IsChecked)
                 {
+                    //var st = new ScaleTransform (1.2, 1.2);
+                    Geometry textShadowGeometry = textGeometry;
+                    var shadowBrush = elements[T.layer].textBorderColor.SelectedColor.Brush.Clone();
+                    shadowBrush.Color = Media.Color.FromArgb(200, shadowBrush.Color.R, shadowBrush.Color.G, shadowBrush.Color.B);
+                    Media.Pen p = new Media.Pen(shadowBrush, elements[T.layer].textBorderSize.Value * 2);
                     
-                    Media.Pen p = new Media.Pen(elements[T.layer].textBorderColor.SelectedColor.Brush, elements[T.layer].textBorderSize.Value);
-                    drawingContext.DrawGeometry(inBrush, p, textGeometry);
+                    drawingContext.DrawGeometry(null, p, textShadowGeometry);
+                    drawingContext.DrawGeometry(inBrush, null, textGeometry);
+                    
                 }
                 else
                 {
